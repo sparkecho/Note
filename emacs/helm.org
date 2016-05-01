@@ -1,0 +1,19 @@
+helm Note
+
+* 1. Official Manual
+  http://tuhdo.github.io/helm-intro.html
+  
+* 2. Other Reference
+  http://blog.csdn.net/hedu135790/article/details/16851077
+  C-x C-f        相当与locate命令,输入某个模糊文件名查找出所有匹配结果
+  C-s               相当于grep命令, 可以选择某个文件,然后输入要查询字段,显示和grep这个文件相同,可以M-a选择所有文件,从所有文件中查询
+  M-R              重命名选定文件
+  M-C              copy选定文件
+  M-S               为选定文件建立软链接
+  M-H               为选定文件建立硬链接
+  M-D               删除某个文件
+  C-<backspace>     取消/开启自动补全文件名功能
+  C-l                  退到上级目录
+  C-x @            用root打开某个文件
+  <right>           手动补全文件名 
+  

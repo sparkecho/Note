@@ -1,0 +1,7 @@
+quickproject Note
+
+* 1. Load quickproject
+  (ql:quickload :quickproject)
+   
+* 2. Make a simplest project
+  (quickproject:makeproject "project's name")

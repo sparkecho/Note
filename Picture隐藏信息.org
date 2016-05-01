@@ -1,0 +1,31 @@
+将信息隐藏在图片中
+
+$ cat bla.txt
+bla bla bla
+bla bla bla
+bla bla bla
+
+$ cat fruit.jpg bla.txt > combine.jpg
+
+$ cat combine.jpg
+乱码
+bla bla bla
+bla bla bla
+bla bla bla
+
+
+
+更有用的方式:
+
+将需要隐藏的文件变成压缩包
+如, 将 bla.txt 压缩成 bla.txt.zip
+
+然后:
+$ cat fruit.jpg bla.txt.zip > combine1.jpg
+
+如果用图像查看器查看 combine1.jpg 则只是普通的图片,
+且与 fruit.jpg 内容一样, 但是如果解压缩的话则可得到
+隐藏的文件:
+
+$ unzip combine1.jpg
+可得到 bla.txt

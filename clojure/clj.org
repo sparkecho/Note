@@ -1,0 +1,30 @@
+Clojure 学习笔记
+
+环境配置
+
+* 1. 安装 lein
+  
+  Leiningen是一个用于自动化（构建）clojure项目的工具, 简称 lein.
+  
+  确保本目录下的 shell 脚本 lein 为可执行的, $ chmod u+x lein
+  将本目录下的 lein 移动到$PATH里，如移动到 /usr/local/bin 目录下
+  执行 $ lein
+  测试 lein 是否安装成功,
+  $ lein repl
+  如果成功出现 Clojure 的 REPL 则代表安装成功,
+  安装配置文件在 .lein 目录下
+  
+  使用 lein 创建项目, 类似 Common Lisp 的 quickproject
+  $ lein new project-name
+  
+  lein 文档 http://wiki.fnil.net/index.php?title=Leiningen_tutorial%E4%B8%AD%E6%96%87%E7%89%88
+  
+  
+* 2. 配置 emacs
+  安装 cider
+  使用 melpa 包管理器即可, M-x package-install [RET] cider [RET]
+  
+  在 emacs 中打开一个 shell 或者在 terminal 中, 运行 $ lein repl
+  然后, M-x cider-jack-in
+  稍等片刻便会出现 Clojure 的 REPL : cider-repl,
+  C-c C-z 可切换 .clj 文件缓冲区和 cider-repl.

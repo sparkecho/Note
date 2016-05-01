@@ -1,0 +1,5 @@
+Note of Elisp
+
+* 编译源文件 
+  (将 filename.el 编译为 filename.elc)
+  M-x byte-compile-file RET filename.el RET

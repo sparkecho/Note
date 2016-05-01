@@ -1,0 +1,4 @@
+Note of CCL (Clozure Common Lisp)
+
+:? 帮助
+(quit) 退出解释器

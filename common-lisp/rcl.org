@@ -1,0 +1,104 @@
+RCL 笔记
+
+在 Common Lisp 中调用 R 的功能
+
+* 1. 安装 rcl 库
+   > (ql:quickload :rcl)
+
+* 2. 使用
+  > (use-package :rcl)
+  T
+
+  > (r-init)
+  :RUNNING
+
+* 3. 示例
+
+** 1.
+*** R 下的调用方式
+	> R.Version
+	function () 
+	.Internal(Version())
+	<bytecode: 0x1f9dd28>
+	<environment: namespace:base>
+
+*** CL 下的调用方式             
+	> (r "R.Version")			
+	((:|nickname| "Sock it to Me")
+     (:|version.string| "R version 3.1.1 (2014-07-10)") (:|language| "R")
+	 (:|svn rev| "66115") (:|day| "10") (:|month| "07") (:|year| "2014")
+	 (:|minor| "1.1") (:|major| "3") (:|status| "") (:|system| "x86_64, linux-gnu")
+	 (:|os| "linux-gnu") (:|arch| "x86_64") (:|platform| "x86_64-pc-linux-gnu"))
+
+
+** 2.
+*** R 下的调用方式
+	> seq(1, 5)
+	[1]  1  2  3  4  5
+
+*** CL 下的调用方式
+	> (r "seq" 1 5)
+	(1 2 3 4 5)
+
+
+** 3.
+*** R 下的调用方式
+	> seq(1, 5) * 2
+	[1]  2  4  6  8 10
+
+*** CL 下的调用方式
+	> (r "*" 2 (r "seq" 1 5))
+	(2 4 6 8 10)
+
+
+** 4.
+*** R 下的调用方式
+	> summary(1, 2, 3)
+	Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+	1       1       1       1       1       1
+
+*** CL 下的调用方式
+	> (r "summary" '(1 2 3))
+	((:|Max.| . 3.0d0) (:|3rd Qu.| . 2.5d0)
+     (:|Mean| . 2.0d0) (:|Median| . 2.0d0)
+     (:|1st Qu.| . 1.5d0) (:|Min.| . 1.0d0))
+
+
+** 5.
+*** R 下的调用方式
+	> x11()
+	> x11()
+	> dev.list()
+	X11cairo X11cairo 
+   	       2        3 
+    > dev.cur()
+	X11cairo 
+           3
+    > dev.off(2)
+    X11cairo
+           3
+    > dev.cur()
+    X11cairo
+           3
+    > dev.off()
+    null device
+              1
+    > dev.list()
+    NULL
+
+*** CL 下的调用方式
+	> (r "x11")
+	NIL
+	> (r "x11")
+	NIL
+	> (r "dev.list")
+	((:|X11cairo| . 3) (:|X11cairo| . 2))
+	> (r "dev.cur")
+	((:|X11cairo| . 3))
+	> (r "dev.off" 2)
+	((:|X11cairo| . 3))
+	> (r "dev.off")
+	((:|null device| . 1))
+	> (r "dev.list")
+	NIL
+	

@@ -1,0 +1,3 @@
+CEPL Note
+
+Introduction: CEPL is Common Lisp's OpenGL

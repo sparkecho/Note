@@ -1,0 +1,25 @@
+Note of LaTeX
+
+* 1. 使 LaTeX 支持中文输入
+
+** 旧方法
+   sudo apt-get install latex-cjk-chinese  
+   Example:
+   \documentclass[12pt landscape]{book}
+   \usepackage{CJKutf8}
+   \begin{document}
+   \begin{CJK*}{UTF8}{gbsn}
+   \huge 示例：
+   \end{CJK*}
+   \end{document}
+
+** 新方法
+   使用 XeLaTeX
+  
+* 2. 在 Emacs 中使用 LaTeX
+  C-c C-c 执行命令
+  C-c C-c latex 生成 pdf
+  C-c C-v 查看生成的 pdf (Quick View)
+  C-c `   查看错误信息
+* 3. Configure Emacs to use XeLaTeX without AUCTeX
+  (setq latex-run-command "xelatex")

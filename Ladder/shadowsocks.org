@@ -1,0 +1,24 @@
+Shadowsocks on Debian
+(类似的方法适用于其他 GNU/Linux)
+
+* 1. 安装
+  $ sudo apt-get python-pip
+  $ sudo pip install shadowsocks
+
+  https://shadowsocks.org/en/download/clients.html
+
+
+* 2. 配置
+
+** Firefox 中配置 Shadowsocks
+
+AutoProxy
+
+新建模式 shadowsocks
+socks5
+127.0.0.1
+1080
+
+** Chrome 中配置 Shadowsocks
+
+SwitchySharp 

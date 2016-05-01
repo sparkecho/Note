@@ -1,0 +1,22 @@
+Note of GNU Smalltalk
+
+* 1. Installatioin
+  如果 ./configre 时遇到如下错误
+  configure: error: Please install InfoZIP to use GNU Smalltalk.
+  那么需要首先安装 InfoZIP(或 zlib), 执行以下命令:
+  sudo apt-get install zlib-gst
+
+* 2. 命令
+  C-d 退出 gst 解释器
+  C-c q 退出 gst 解释器		#只能用于 Terminal, Emacs 的 shell-mode 不可以
+
+* 3. self 与 super 辨析
+  见于 watch.st
+
+* 4. 注释
+** <comment: 'blabla'> 
+   这样的注释只能放在定义的开始位置, 不能在实际执行的代码中间放置
+   否则会报 parse error: expected ']' 这样的错误.
+
+** "comments" 
+   这样的注释则可以随意放置.

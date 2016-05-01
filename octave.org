@@ -1,0 +1,9 @@
+Octave Note
+
+* 1. 安装 Octave
+  $ sudo apt-get install octave
+
+* 2. 在 emacs 中运行 octave
+  由于 Emacs 19.35 以后的版本不需要自己安装 EOS(Emacs Octave Support) 了
+  所以, 直接执行一下命令即可运行 octave
+  M-x run-octave 或 M-x inferior-octave

@@ -1,0 +1,43 @@
+Note of portableaserve
+
+* 1. 安装
+CL-USER> (ql:quickload :aserve)
+To load "aserve":
+  Load 4 ASDF systems:
+    cl-fad cl-ppcre ironclad puri
+  Install 1 Quicklisp release:
+    portableaserve
+; Fetching #<URL "http://beta.quicklisp.org/archive/portableaserve/2015-09-23/portableaserve-20150923-git.tgz">
+; 567.24KB
+==================================================
+580,854 bytes in 12.42 seconds (45.66KB/sec)
+; Loading "aserve"
+..................................................
+[package acl-compat.excl].........................
+[package acl-compat.mp]...........................
+[package de.dataheaven.chunked-stream-mixin]......
+[package acl-compat.socket].......................
+[package acl-compat.system].......................
+[package gray-stream].............................
+[package net.html.generator]......................
+[package net.aserve]..............................
+[package net.aserve.client].......................
+..................................................
+....................................
+(:ASERVE)
+
+
+* 2. 示例
+CL-USER> (defpackage :com.gigamonkeys.web
+		   (:use :cl :net.aserve))
+#<PACKAGE "COM.GIGAMONKEYS.WEB">
+CL-USER> (in-package :com.gigamonkeys.web)
+#<PACKAGE "COM.GIGAMONKEYS.WEB">
+WEB> (start :port 8080)
+#<WSERVER port 8080 {100326EEF3}>
+WEB> (start :port 8080)
+#<WSERVER port 8080 {100326EEF3}>
+WEB> (publish-file :path "/hello.html" :file "/home/user_name/code/cl/pcl/C26_AllegroServe/hello.html")
+#<NET.ASERVE::FILE-ENTITY {1005613673}>
+WEB> (publish-file :path "/hello.html" :remove t)
+NIL

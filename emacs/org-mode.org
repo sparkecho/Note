@@ -1,0 +1,23 @@
+Org-mode Note
+
+
+* 新建一个org-mode文件
+  C-x C-f test.org  
+  (1) 输入正文标题
+  (2) 按 M-RTN  输入第一个标题, 回车; 
+      输入标题内容
+  (3) 按 M-RTN tab, 插入一个二级标题; 
+      输入标题  回车; 
+      输入内容
+      (多次按 Tab 可以在标题级数间切换, * 的数目代表级数)
+  (4) 依次类推, 输入完文章即可
+  (5) C-x C-s 保存文件
+  (6) C-c C-e 什么格式输出，按 h 为选择 html
+
+* 插入代码块
+  #           代码类型
+
+  #+BEGIN_SRC emacs-lisp
+  (defun hello ()
+    (print "Hello, world"))
+  #+END_SRC

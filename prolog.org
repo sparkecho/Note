@@ -1,0 +1,12 @@
+Note of prolog
+
+============================================================
+gprolog (GNU Prolog)
+
+	Installation:
+		sudo apt-get install gprolog
+	Zsh 中使用 gprolog 打开 gprolog 需在 .zshrc 中加入:
+		alias gprolog="/usr/bin/gprolog"
+	退出 gprolog:
+		 C-c 进入 Prolog interruption
+		 键入 e 退出

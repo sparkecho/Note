@@ -1,0 +1,26 @@
+Note of R & ESS
+
+ESS is short for Emacs Speaks Statistic
+
+* 1. Installation of Ess
+  In emacs: M-x package-intall RTN ess RTN
+* 2. Installation of R
+  In terminal: sudo apt-get install r-base
+* 3. 在 emacs 中调用 R
+  M-x R						#R 需要大写
+* 4. 在 R 的提示符下的一些操作
+  用'demo()'来看一些示范程序，用'help()'来阅读在线帮助文件，或
+  用'help.start()'通过HTML浏览器来看帮助文件。
+  用'q()'退出R.
+* 5. 快捷键
+  C-c C-c : 在 R 的提示符下中断执行或中断输入
+  C-c C-z : 在文件缓冲区和解释器缓冲区间切换
+* 6. 文件后缀名
+  R 的源文件的后缀名既可以是 .r 也可以是 .R
+* 7. 加载文件
+  加载文件用 > source("filename.r")
+* 8. 换行
+  在同一行写多条语句时, 除最后一条语句外, 语句结束时需加分号 ;
+  如果一行只有一条语句, 则不需要加 ;
+* 9. 文档
+  在目录: /usr/share/R/doc; /usr/lib/R/ 下有 R 的文档

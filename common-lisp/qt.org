@@ -1,0 +1,21 @@
+Note of Common Qt
+
+* 1.CommonQt needs
+
+** (1). Install smokeqt
+   $ sudo apt-get install libqt4-dev libsmokeqtgui4-3 libsmokeqt4-dev
+   (On Debian testing and Ubuntu)
+
+   $ sudo yum qt-devel smokeqt-devel
+   (On Fedora)
+
+** (2). Install Qt libraries (tested with 4.8), QT5 is not yet supported.
+   $ sudo apt-get install qt4-dev-tools
+
+
+* 2. Install CommonQt
+	in REPL run (ql:quickload :qt)
+
+
+* Refference
+  https://common-lisp.net/project/commonqt/

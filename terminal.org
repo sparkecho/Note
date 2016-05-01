@@ -1,0 +1,3 @@
+Terminal Note
+
+  在 terminal 中 C-l == clear

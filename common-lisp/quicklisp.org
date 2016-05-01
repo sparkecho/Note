@@ -1,0 +1,46 @@
+Quicklisp Note
+
+* 0. 当在安装(install)包时出现
+   Name service error in "getaddrinfo": -2 (未知的名称或服务)
+   [Condition of type SB-BSD-SOCKETS:HOST-NOT-FOUND-ERROR]
+   这样的错误提示, 有可能是因为没有网络连接
+   如果 ping 的话是 ping 不通的
+
+
+* 1. 这样的提示信息
+   Socket error in "connect": ENETUNREACH (网络不可达)
+   [Condition of type SB-BSD-SOCKETS:NETWORK-UNREACHABLE-ERROR]
+   也是网络有问题.
+   如果 ping 的话, 出现的结果中包含 network-unreachable-error
+
+
+* 2. 如果出现
+   Can't create directory /home/user-name/.cache/common-lisp/sbcl-1.2.16-linux-x64/home/user-name/quicklisp/dists/quicklisp/software/portableaserve-20150923-git/
+   [Condition of type SB-INT:SIMPLE-FILE-ERROR]
+   这样的提示信息, 则是权限的问题
+   要么使用 sudo 权限打开的程序来执行该操作
+   要么使用 sudo chown (-R) user-name file(directory) 来更改文件(目录)的权限
+
+
+* 3. 安装 quicklisp
+   第一次安装时以此执行
+       (load "directory/quicklisp.lisp")
+       (quicklisp-quickstart:install)
+       (ql:add-to-init-file)		#添加到初始化文件中, 即自动加载, 可选
+
+   如果已经安装了 quicklisp , 如果没有设置为自动加载可以通过 加载 setup.lisp
+       (load "directory-of-quicklisp/setup.lisp")
+   如: quicklisp 安装在了 ~/ 目录, 则
+       (load "~/quicklisp/setup.lisp")
+
+   如果已经安装了 quicklisp 但想让其他实现也自动加载 quicklisp 则
+   在相应的实现中执行
+       (ql:add-to-init-file) 即可
+   也可以在其他实现中使另一个实现自动加载 quicklisp, 如在 ccl 中使 ecl 自动
+   加载 quicklisp:
+       (ql:add-to-init-file :ecl)
+   这样做会生成一个 .eclrc 文件, 如果没有的话, 来包含或添加以下内容
+   #-quicklisp
+   (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
+     (when (probe-file quicklisp-init)
+       (load quicklisp-init)))

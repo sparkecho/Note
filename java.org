@@ -1,0 +1,30 @@
+Note of Java
+
+1. 当 java 虚拟机的版本低于 javac 编译器时, 用 java 指令运行 javac 编译后的文件, 就会出现如下错误.
+
+$ javac hello.java
+$ java Hello
+Exception in thread "main" java.lang.UnsupportedClassVersionError: Hello : Unsupported major.minor version 52.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:800)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:449)
+	at java.net.URLClassLoader.access$100(URLClassLoader.java:71)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:425)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+	at sun.launcher.LauncherHelper.checkAndLoadMain(LauncherHelper.java:482)
+
+此时应该使用配套的低版本编译器编译, 然后运行; 或者卸载低版本的虚拟机, 安装配套的较高版本虚拟机.
+使用如下命令查看 java 的版本:
+
+$ java -version
+java version "1.7.0_91"
+OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
+OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
+-----------------------------------------------------------------------------------------------------------------
+此例中, 除了 Java7 外还安装了 Java8, 故将 OpenJDK7 卸载

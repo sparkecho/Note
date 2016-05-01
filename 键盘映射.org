@@ -1,0 +1,19 @@
+设置　交换 CapsLock 和 Control_L 键位
+
+在Home目录下的 .Xmodmap 文件中加入如下设置语句
+重启可生效
+
+!
+! Swap Caps_Lock and Control_L
+!
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+
+
+如果失效, 可以执行 
+$ xmodmap .Xmodmap 
+命令来使 .Xmodmap　中的设置重新生效

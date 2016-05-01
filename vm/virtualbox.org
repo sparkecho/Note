@@ -1,0 +1,78 @@
+Note of Virtualbox
+
+
+* 问题集锦
+
+** 问题 1, 打开虚拟盘文件/*/Files/*/*.vdi 失败
+
+*** 1. 问题
+	打开虚拟盘文件/media/user_name/Files/VirtualBox VMs/Ubuntu8.04/Ubuntu8.04.vdi 失败.
+Cannot register the hard disk '/media/user_name/Files/VirtualBox VMs/Ubuntu8.04/Ubuntu8.04.vdi'
+{715b6396-38fb-430c-be14-0fc382fde545} because a hard disk '/home/user_name/VirtualBox VMs/U...
+
+*** 2. 问题描述
+	virtualbox导入vdi文件时出现下面的问题：
+
+*** 3. 解决方法
+	$ VBoxManage internalcommands sethduuid /media/user_name/Files/VirtualBox\ VMs/Ubuntu8.04/Ubuntu8.04.vdi
+                                            ----------------------------------------------------------
+                                                           要导入的 vdi 文件的位置
+                                                          
+    这是一个重新设置UUID号的命令，VirtualBox没有集成到GUI环境中，只能在命令行中使用
+
+
+
+** 问题 2, Kernel driver not installed (rc=-1908)
+
+*** 1. 问题:
+	Kernel driver not installed (rc=-1908)
+
+	The VirtualBox Linux kernel driver (vboxdrv) is either not loaded or there is a permission
+	problem with /dev/vboxdrv. Please reinstall the kernel module by executing
+	
+	'/sbin/rcvboxdrv setup'
+
+	as root. If it is available in your distribution, you should install the DKMS package first.
+	This package keeps track of Linux kernel changes and recompiles the vboxdrv kernel module if necessary.
+	
+	where: suplibOsInit what: 3 VERR_VM_DRIVER_NOT_INSTALLED (-1908) - The support driver is not installed.
+	On linux, open returned ENOENT.
+
+*** 2. 解决方法:
+
+	sudo apt-get update
+	sudo apt-get install dkms
+	sudo /sbin/rcvboxdrv setup
+
+
+*** 3. 详细信息:
+
+**** $ sudo apt-get install dkms
+
+***** 将会安装下列额外的软件包：
+cpp-4.8 gcc-4.8 libasan0 libgcc-4.8-dev linux-compiler-gcc-4.8-x86 linux-headers-3.16.0-4-amd64
+linux-headers-3.16.0-4-common linux-headers-amd64
+  linux-kbuild-3.16
+***** 建议安装的软件包：
+gcc-4.8-locales gcc-4.8-multilib gcc-4.8-doc libgcc1-dbg libgomp1-dbg libitm1-dbg libatomic1-dbg libasan0-dbg
+libtsan0-dbg libquadmath0-dbg
+***** 推荐安装的软件包：
+  linux-image
+***** 下列【新】软件包将被安装：
+cpp-4.8 dkms gcc-4.8 libasan0 libgcc-4.8-dev linux-compiler-gcc-4.8-x86 linux-headers-3.16.0-4-amd64
+linux-headers-3.16.0-4-common
+  linux-headers-amd64 linux-kbuild-3.16
+
+**** $ dpkg -l | grep headers-3.16
+	 ii  linux-headers-3.16.0-4-amd64   3.16.7-ckt20-1+deb8u1  amd64  Header files for Linux 3.16.0-4-amd64
+	 ii  linux-headers-3.16.0-4-common  3.16.7-ckt20-1+deb8u1  amd64  Common header files for Linux 3.16.0-4
+
+**** $ sudo /sbin/rcvboxdrv setup                                                                                            
+	 Stopping VirtualBox kernel modules ...done.
+	 Uninstalling old VirtualBox DKMS kernel modules ...done.
+	 Trying to register the VirtualBox kernel modules using DKMS ...done.
+	 Starting VirtualBox kernel modules ...done.
+
+*** 参考:
+	http://blog.sina.com.cn/s/blog_4d3559c70100w6sv.html
+

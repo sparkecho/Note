@@ -1,0 +1,24 @@
+Veewee 笔记
+
+* 1. 安装
+
+** (1) 确保 ruby 的版本 >= 2.0
+       如果不满足则 下载源码
+	   $ ./config
+	   $ make
+	   $ sudo make install
+
+** (2) 确保已经安装了 openssl 以及 libssl-dev
+       $ dpkg -s libssl-dev  #用来查看是否已经安装了
+	   $ sudo apt-get -y install libssl-dev #安装
+
+** (3) 确保 http://rubygems.org/ 在 gem 的源中
+       $ gem sources  #用来查看当前源
+	   *** CURRENT SOURCES ***
+	   http://rubygems.org/
+	   
+	   $ gem sources --add http://rubygems.org/ #添加到源中
+	   http://rubygems.org/ added to sources
+
+** (4) 安装 veewee
+       $ sudo apt-get install veewee

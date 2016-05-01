@@ -1,0 +1,36 @@
+Slime user manual
+3.2 求值命令 
+
+;; 快捷键都不可用
+
+这些命令每一个都以不同的方式来对一个Common Lisp表达式求值。一般来说它们模
+仿Emacs Lisp的求值命令。默认情况下它们会在显示区显示出结果,但是一个前缀参数
+会让结果插入到当前缓冲区中。
+
+C-x C-e 或 M-x M-x slime-eval-last-expression
+对光标前的表达式求值并且将结果显示到显示区
+
+C-M-x 或 M-x slime-eval-defun
+对当前toplevel的形式进行求值并将结果打印到显示区。“C-M-x”会特别对
+待“defvar”。正常来讲,如果定义的变量已经有一个值了,“defvar”表达式不会
+做任何事情。但是“C-M-x”命令无条件的将“defvar”表达式里定义的值初始化并赋
+予指定的值。这个特性十分便于调试Lisp程序。
+如果带数字参数地执行C-M-x或者C-x C-e,它会将结果插入到当前缓冲区,而不是将其
+打印到显示区。
+
+
+C-c : 或 M-x slime-interactive-eval
+从迷你缓冲区读取一个表达式并求值
+
+C-c C-r 或 M-x slime-eval-region
+对区域进行求值
+
+C-c C-p 或 M-x slime-pprint-eval-last-expression
+对光标前的表达式进行求值并将结果漂亮地打印在一个新的缓冲区里
+
+C-c E 或 M-x slime-edit-value
+在一个叫做“Edit <form>”的新缓冲区里编辑一个可以setf的形式的值。这个值会
+被插入一个临时缓冲区以便编辑,然后用C-c C-c命令来提交设置于Lisp中。
+
+C-c C-u 或 M-x slime-undefine-function
+用fmakunbound来取消当前光标处函数的定义。

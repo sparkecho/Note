@@ -1,0 +1,276 @@
+Emacs 笔记
+
+* Emacs的基本操作
+
+From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
+
+
+** Emacs的命令按键
+
+Emacs中主要使用命令按钮如下
+
+C键：代表Contorl的意思，用户来控制与语言无关的单位（字符，行）。键盘上为 ctrl 键。
+
+M键：代表Meta的意思，用来控制与语言定义的单位（如词，句子，段落）。键盘上一般为 Alt 键。
+
+Esc：单击一次相当于M – 。
+
+- ：在Emacs的命令中，你经常会看到  -  这个符号，它代表按住前面一个字符，比如C – x  就表示按住Ctrl再按x。
+
+命令的取消：C – g ,或者 按2次Esc.
+
+
+
+
+** Emacs文件的操作
+
+包括对文件的打开，存储，和退出。
+
+文件的打开：C-x C-f，在当前窗口打开一个文件buffer.
+
+文件的保存： C-x C-s,对当前文件进行存盘。C-x  s  保存多个缓冲区。
+
+文件的另存为：C-x C-w.
+
+打开一个新的farme:C-x 5 2.
+
+退出Emacs:C-x C-c.
+
+
+
+ 
+** Emacs缓冲区(buffer)
+
+   前面提到过buffer这个东西，其实可以理解为Emacs为你的每个文件开辟的另外一个空间，
+在这个空间里，你可以对文件随心所欲的编辑，而不用担心影响原文件。Emacs会定时给你的 
+buffer文件进行auto save，并在同文件目录下命名一个#文件名#的文件（存盘后自动消失），
+所以你也不用担心所编辑的东西会丢失。
+
+
+显示所有缓冲区:C-x C-b.
+
+选择一个name缓冲区：C-x b,输入在缓冲区中的文件名，默认为上一个buffer.
+
+上一个缓冲区：C-x left.
+
+下一个缓冲区：C-x right.
+
+
+
+
+** 光标的移动
+
+
+在编辑文本时对光标的控制
+
+上：C-p(previous).
+下：C-n(next).
+左：C-b(back).
+右：C-f(forward).
+
+移动到文件的开始处：M-<.
+移动到文件的结尾处：M->.
+光标跳转到x行：M-g g x RTN
+
+移动到行首：C-a.
+移动到行末：C-e(end).
+向前移动一个词：M-f.
+向后移动一个词：M-b.
+向前移动一个句子：M-a.
+向后移动一个句子：M-e.
+
+向下滚动一屏：C-v(view).
+向上滚动一屏：M-v.
+将当前行置于屏幕中间：C-l.  2次 C-l 置于屏幕首，3次 C-l 置于屏幕末。
+
+ 
+** 文件的编辑
+
+
+对文本的删除，复制，粘贴等。
+
+删除光标前字符：backspace（回车键上面那个）.
+删除当前字符：C-d(delete).
+删除光标前的一个词：M-backspace.
+删除光标后的一个词：M-d.
+删除光标处到行末的字符：C-k(kill).
+删除光标处到句末的字符：M-k.
+撤销：C-x u(undo). 或者 C-/ 再或者 C-_ .推荐使用第一种,方便。
+移除标记mark set:C-@，即标记从光标处开始的字符。
+移除：C-w,移除mark set处到现光标处的字符。
+召回上一次移除文字：C-y(yank).
+召唤以前移除的文字：M-y.注意，在C-y使用之后使用。
+复制:M-w,从上一次mark set处，到现在光标处的字符。使用C-y粘贴。
+全选：C-x h.
+
+
+
+ 
+** 文本的搜索
+
+Emacs可以向前，向后搜索字符串，搜索命令是渐进的（incremental）的，就是搜索与输入同步，没输入一个字符，Emacs就已经开始搜索了。
+
+向前搜索：C-r.
+
+向后搜索：C-s.
+
+注意：在搜索时候，可以按C-s/r 查看下/上一处，C-g取消搜索，回到初始搜索光标处；<Enter>结束搜索，光标留在搜索结果上。
+
+
+
+ 
+** 多窗口
+
+Emacs迷人之处很多，能在一个屏幕上同时显示多个文件就是其中之一。
+
+添加窗口：C-x 2.新添加的窗口为当前文件。
+
+关闭当前窗口外窗口：C-x 1.
+
+滚动下方窗口（向下）：C-M-v
+
+滚动下方窗口（向上）：C-M-Shift-v.
+
+遍历窗口：C-x o.
+
+在新窗口中打开文件：C-x 4 C-f.
+
+
+ 
+** 更多帮助（more help）
+
+Emacs提供的功能实在是太多了，更多的内容可以在Help文档中查看。
+
+基本的用法是C-h.
+
+Help文档信息：C-h ?.
+
+命令的简要说明：C-h c .后面加所要查询的命令。如 C-h c <enter>C-p <enter>.
+
+命令的更多说明：C-h k.
+
+解释一个函数：C-h f.
+
+显示Emacs变量文档：C-h v.
+
+相关命令搜索：C-h a .后面输入一个关键词。Emacs会显示所有与之相关的命令。
+
+ 
+附加说明
+
+命令的重复：C-u 数字 命令。以所给数字为次数，重复命令。
+
+
+
+
+
+
+* Emacs与buffer  
+
+From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
+
+
+** buffer 列表（键入C-x C-b时显示在一窗口中）
+
+
+Emacs会创建它自己的专用buffer。这些内部buffer的名字一般来说格式为 *buffer name* 。*Help*、*scratch*和*Buffer List*就是Emacs创建的其中一些buffer。
+
+当你启动Emacs时，它会建立两个buffer：
+
+*Messages*
+*scratch*
+
+*Messages* buffer存储了Emacs收集自它启动时从minibuffer里显示的消息；*scratch*是个临时的scratchpad（涂鸦板），以便你有地方输入东西。除非你使用C-x C-w明确的把它写到文件中，否则它不会被保存下来。
+
+当然，一般来说你用Emacs编辑文件时，这些文件就会被拷贝到同名的buffer中。如果你需要获得帮助，则会进入 *Help* buffer。
+
+能在Emacs里打开的buffer数量实际上没有限制。大多数情况下，只显示一个或两个buffer；不过即使你无法看到全部，你在某个Emacs会话里 创建的buffer仍处于活动状态。你可以把这些buffer想象成一叠纸，只有放在最上面的那页才显示在你眼前。不过任何时候，你都可以翻到另一页（另 一个buffer），或者也可以创建一个新页。
+
+每个buffer都关联一个主模式（major mode），它决定了Emacs在这个buffer里的行为。例如，设计用来书写文本的文本模式（text mode），和Lisp模式的表现就不一样，后者被设计用来编写Lisp程序。
+
+
+
+
+** 如何操作多个 buffer
+
+
+如果要新建包含一个文件的buffer，只需键入 C-x C-f 找到该文件。Emacs就会自动新建一个buffer并定位到该buffer。如果该文件已打开，C-x C-f 只是定位到已有buffer中，这一点很有意义，可以避免同一文件存在多个buffer导致混乱。如果键入 C-x C-f 后输入的文件名不存在，Emacs认为你想新建一个文件，并定位到一个空白buffer中。
+
+C-x b：在多个buffer之间进行切换；键入命令后输入buffer名，回车。如果已存在该buffer，则切换到该buffer中；否则以输入的 buffer名新建一个buffer，但是注意这个buffer并没有和文件相关，因此关闭Emacs，它不会给你任何提示。
+
+C-mouse 1：按住Ctrl并单击鼠标左键，会弹出一个Buffer Menu，它会按主模式类型列出活动的buffer供你选择。
+
+C-x ->(<-)：按下C-x后（放开）再按向右（左）方向键可以定位到下（上）一个buffer中。
+
+我的习惯是： c-x  c-b 显示所有名字   c-x b 输入要切换的buffer名字。
+
+
+
+
+** 如何删除 buffer
+
+
+注 意：如果你修改了一个buffer（且该buffer和一个文件相关），则Emacs会在删除buffer前询问你是否保存所做修改；如果这个 buffer和文件不相关，则你在该buffer里所做任何修改都会丢失，Emacs认为你不在乎这些buffer因此不作任何提示。因此编辑重要的 buffer之前最好先 C-x C-w 写到文件中，或者用 C-x C-f 新建buffer。
+
+C-x k：kill-buffer命令，删除一个buffer；
+
+M-x kill-some-buffers：删除一些buffer；
+
+如果删除了当前会话里的所有buffer，Emacs会新建一个 *scratch* buffer，总得有个东西显示在屏幕上不是？:P
+
+
+
+
+** 如何保存 buffer
+
+C-x C-s：保存当前buffer；
+
+C-x s：即save-some-buffers命令，一次保存所有buffer；
+
+
+
+
+** 如何重命名 buffer
+
+M-x rename-buffer：重命名buffer；
+
+
+
+
+** 如何使 buffer 只读
+
+C-x C-q：切换buffer的read-only和read-write状态；
+
+
+
+** buffer和window的关系
+
+
+buffer和window并不是一一对应的，同一个buffer可以有多个window，比如你可以同时在多个window里查看同一buffer的不同部分。
+Mark是和buffer关联的；而point是和window关联的。
+
+C-x 2：即split-window-vertically命令，水平切分窗口；
+
+C-x 3：垂直切分窗口；
+
+C-x 4 b(f)：在另一个窗口选择另一个buffer（查找另一个文件），这样你可以不用切换到另一个window，就改变其buffer或打开文件；
+
+C-M-v：滚动另一个window（C-v是滚动当前window）；
+
+C-x o：此处 o 表示other（其它），移动光标到另一个window；
+
+C-x 0：删除当前所在的window；
+
+C-x 1：删除当前所在window之外的所有window；
+
+C-x 5 2：新建一个frame；  
+
+
+* 设置主题
+
+  如, 设置了一个主题名为 bla-theme.el
+使用方式默认安装时, 配置主题的 elisp 文件放置在如下位置
+/usr/local/share/emacs/24.5/etc/themes
+
+使用Windows方式安装时, 配置主题的 elisp 文件放置在如下位置
+/usr/local/emacs-24.5/share/emacs/24.5/etc/themes/

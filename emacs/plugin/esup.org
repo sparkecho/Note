@@ -1,0 +1,19 @@
+Esup 插件
+
+* 1. 作用
+  对 emacs 启动的分析, 统计各个插件加载的时间
+
+* 2. 配置
+  .emacs.d
+  ~/.emacs.d $ git clone https://github.com/jschaf/esup
+  
+  .emacs 中
+  ;; Esup
+  ;; https://github.com/jschaf/esup
+  (add-to-list 'load-path "~/.emacs.d/esup")
+  (autoload 'esup "esup" "Emacs Start Up Profiler." nil)
+  (require 'esup)
+
+
+* 3. 使用方式
+  M-x esup

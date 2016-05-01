@@ -1,0 +1,4 @@
+ASDF 使用笔记
+
+* 1. asdf:load-system 的使用
+  当调用如(asdf:load-system "test")时, 可能会报错, 可以先加载 test 的 .asd 文件, 再执行前面的命令, 即：(load "~/*/test.asd") 之后再执行 (asdf:load-system "test") 即可

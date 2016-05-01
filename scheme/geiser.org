@@ -1,0 +1,15 @@
+geiser 笔记
+
+* 1. 安装
+  elpa/melpa
+
+* 2. 启动
+  M-x geiser
+  会在 MiniBuffer 询问连接 guile, racket, chicken 中的哪一个编译器/解释器
+  输入所要运行的编译器/解释器
+
+* 3. 快捷键
+  在 geiser 的文件 .scm buffer 中
+  C-x C-e 求值单个形式
+  C-c C-k 加载此文件
+  C-c C-z 在分屏后的两个缓冲区间切换

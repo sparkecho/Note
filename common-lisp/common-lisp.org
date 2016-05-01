@@ -1,0 +1,214 @@
+Common Lisp Note
+
+* 1. 注释
+   在 Common Lisp 中多行注释使用 #|...|#, For Example:
+
+   #+BEGIN_SRC lisp
+   #| (defun hellon (n)
+        (cond ((zerop n) 'done)
+              (t (format t "Hello~%")
+                 (hellon (- n 1)))))
+   |#
+   #+END_SRC
+
+   由于使用 #| |# 注释，没有返回值, 所以可以用于注释掉部分形式来调试，如
+   > (+ 1 2 #|(+ 3 4)|# 5)
+   8
+   
+   如果像这样注释, 则代码将失效
+   
+
+* 2. 数
+
+** ratio
+　　　ratio 有理数是范围更小的类型: 只有分数是 ratio 类型, 整数和小数不是
+　　　      Example: 
+　　　               (typep 1 'ratio)   =>   NIL
+　　　               (typep 1/2 'ratio) =>   T
+　　　               (typep 1.2 'ratio) =>   NIL
+　
+
+** rational　
+　  rational 是范围稍大的类型: 分数或整数都是 rational 类型, 小数不是
+　  　　　　　　Example:
+　  　　　　　　         (typep 1 'rational)    =>   T
+　  　　　　　　         (typep 1/2 'rational)  =>   T
+　  　　　　　　         (typep 1.2 'rational)  =>   NIL
+　  　　　　　　         
+
+　  rational = ratio + integer
+　  　　　　　 
+　  real = rational + floating-point numbers
+　  　　　　　 
+　  number = real + complex numbers
+　  
+　  
+
+
+* 3. 符号(symbol)
+   name of symbol |apl\\360| is apl\360
+
+   > (symbol-name '|apl\\360|)
+   "apl\\360"
+   
+   > (length (symbol-name '|apl\\360|))
+   7		;;Note that it is't 8.
+   
+   > (length "apl\\360")
+   7
+   
+   > (format t "~A" "apl\\360")
+   apl\360
+   
+   
+
+* 4. 列表(List)
+   Judge the end of a list.
+   CLtL2 P33 Implementation note: 
+         Using `atom' as the end test of a list:
+
+   (defun travel (fn lst)
+     (cond ((atom lst) nil)
+	   (t (cons (funcall fn (car lst))
+	            (travel fn (cdr lst))))))
+	            
+	            
+   Type  null : sole element - nil   (typep nil 'null) -> T
+   Type  cons : (consp nil) -> nil	            
+   Type  List = cons + null	          
+   
+   
+* 5. 数组(Array)
+   CLtL2 P34 :  zero-rank array : > (make-array nil) 
+                                  #0A0
+                                                      
+                                  > (aref (make-array nil))
+                                  0
+                           
+                                  > (make-array nil :initial-element 3)
+                                  #0A3
+                                                                                        
+                                  > (aref (make-array nil :initial-element 3))
+                                  3
+                                  
+
+* 6. 类型
+   CLtL2 P44 :  The types (vector t), string, and bit-vector are disjoint.
+
+                string is similar as     (make-array n :element-type 'character)
+                bit-vector is similar as (make-array n :element-type 'bit)
+                                               
+                而 make-array 函数默认的 element-type 为 t
+                (vector t) is similar as (make-array n :element-type t)
+                
+                所以有如下情况:
+                > (typep "abc" '(vector t)   =>  NIL
+                > (typep #(#\a #\b #\c) '(vector t))  =>  T
+                > (typep #(1 2 3) '(vector t))   =>  T
+                > (typep (make-array 3 :element-type 'fixnum) '(vector t))   =>  NIL
+                
+                string & bit-vector 都是元素类型特化的向量, 占用空间更加紧凑, 
+                而类型 (vector t) 是通用向量, 占用空间稀疏
+                
+                
+* 7. 特殊形式
+   CLtL2 P77 : special-form-p 由 special-operator-p 替代
+               (special-operator-p 'sym) 判断符号 sym　是否是特殊形式操作符
+                
+               Note: SBCL 中
+                     (special-operator-p 'declare) => NIL 
+                     (macro-function 'declare) => NIL
+                     
+                     CLISP中
+                     (special-operator-p 'declare) => T
+                     (macro-function 'declare) => T                     
+                     
+               setq 是特殊形式, setf 是宏
+               
+
+
+* 8. labels & flet
+	      
+	      labels 和 flet 都是定义局部函数的特殊形式, 在顶层也能正常工作.
+	      但是 labels 可以定义递归函数, 但是 flet 不能定义递归函数.
+	      
+
+* 9. 关于函数调用求值顺序
+	      
+  > (f (/ 1 0) 1)	      
+
+** SBCL
+	      SBCL: arithmetic error DIVISION-BY-ZERO signalled
+                    Operation was /, operands (1 0).
+                    
+              CLISP: *** - EVAL: undefined function F
+              
+              CCL:  Error: DIVISION-BY-ZERO detected
+                    performing / on (1 0)
+
+              
+              > (+ (/ 1 0) 1)
+              
+              SBCL: arithmetic error DIVISION-BY-ZERO signalled
+                    Operation was /, operands (1 0).
+                    
+              CLISP: *** - /: division by zero
+
+
+** CCL
+   CCL:  Error: DIVISION-BY-ZERO detected
+         performing / on (1 0)
+
+
+** 结论:
+   在 SBCL　和 CCL 中函数调用先求值参数, 再进行函数调用.
+   在 CLISP 中函数调用先确定函数是否存在, 再进行参数求值.                    
+
+
+* 10. 函数 function-lambda-expression
+
+** (1) 可以查看给定函数的定义
+		例:
+		    > (defun hello (n)
+			    (cond ((zerop n) 'done)
+			          (t (format t "~A" n)
+				         (hello (- n 1)))))
+			HELLO
+            
+			> (function-lambda-expression #'hello)
+			(SB-INT:NAMED-LAMBDA HELLO
+			    (N)
+			  (BLOCK HELLO (COND ((ZEROP N) 'DONE) (T (FORMAT T "~A" N) (HELLO (- N 1))))))
+			NIL
+			HELLO
+
+
+** (2) 查看内置函数不会显示定义过程
+		例:
+		   > (function-lambda-expression #'exp)
+		   NIL
+		   T
+		   EXP
+
+
+** (3) 不能查看宏的定义, 会报错
+
+
+** (4) Describe of 'function-lambda-expression
+COMMON-LISP:FUNCTION-LAMBDA-EXPRESSION
+  [symbol]
+
+FUNCTION-LAMBDA-EXPRESSION names a compiled function:
+  Lambda-list: (FUN)
+  Declared type: (FUNCTION (FUNCTION)
+                  (VALUES T (MEMBER T NIL) T &OPTIONAL))
+  Derived type: (FUNCTION (FUNCTION)
+                 (VALUES LIST (MEMBER T NIL) T &OPTIONAL))
+  Documentation:
+    Return (VALUES DEFINING-LAMBDA-EXPRESSION CLOSURE-P NAME), where
+      DEFINING-LAMBDA-EXPRESSION is NIL if unknown, or a suitable argument
+      to COMPILE otherwise, CLOSURE-P is non-NIL if the function's definition
+      might have been enclosed in some non-null lexical environment, and
+      NAME is some name (for debugging only) or NIL if there is no name.
+  Known attributes: call, unwind, any
+  Source file: SYS:SRC;CODE;DESCRIBE.LISP.NEWEST

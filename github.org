@@ -1,0 +1,21 @@
+github 笔记
+
+
+* 建立主页
+
+** 4.1 创建个人主页
+
+   GitHub 为每一个用户分配了一个二级域名 <user-id>.github.io, 用户为自己的二级域名创建主页很容易, 只要在托管空间下创建一个名为
+   <user-id>.github.io 的版本库，向其 master 分支提交网站静态页面即可，其中网站首页为 index.html.
+
+   访问网址： http://gotgithub.github.io/
+   
+   要注意访问用户二级域名的主页要使用 HTTP 协议非 HTTPS 协议.
+
+** 4.2 创建项目主页
+
+   GitHub 会为每个账号分配一个二级域名 <user-id>.github.io 作为用户的首页地址。实际上还可以为每个项目设置主页,
+   项目主页也通过此二级域名进行访问。例如 gotgithub 用户创建的 helloworld 项目如果启用了项目主页，则可通过网址
+   http://gotgithub.github.io/helloworld/ 访问.
+   
+   为项目启用项目主页很简单，只需要在项目版本库中创建一个名为 gh-pages 的分支，并向其中添加静态网页即可。

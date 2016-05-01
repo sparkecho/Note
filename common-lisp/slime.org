@@ -1,0 +1,73 @@
+SLIME Note
+
+* 1. REPL 快捷键
+0. C-c C-d h : Look Up Symbols in "Common Lisp HyperSpec"
+1. C-c C-l : Load Buffer
+2. C-c C-c : Interupt Lisp Process (REPL)
+3. C-c C-u : Kill Current Input
+4. C-c C-p : Goto Previous Prompt
+5. C-c C-n : Goto Next Prompt
+6. C-c C-o : Clear Last Output
+7. C-c M-o : Clear Buffer
+8. M-p : Previous Input
+9. M-n : Next Input
+
+
+* 2. 定义跳转快捷键
+M-. 从光标所在的函数名跳转到该函数定义的地方
+M-, 从该函数定义的地方重新回到函数名所在的地方(执行 M-. 的地方)
+
+
+* 3. File 快捷键
+0. C-c C-c : Compile Current Form
+1. C-c C-k : Load Current File
+2. C-c C-z : Jump to Active REPL
+3. C-c Tab : Complication = `Tab' in REPL
+
+
+
+* 4. 加快 swank 启动速度
+
+** 加快 swank 启动速度的方法
+
+*** 1. 生成 slime core
+; shell$ sbcl
+; * (mapc 'require '(sb-bsd-sockets sb-posix sb-introspect sb-cltl2 asdf))
+; * (save-lisp-and-die "sbcl.core-for-slime")
+
+.emacs 文件中添加:
+#+BEGIN_SRC emacs-lisp
+(setq slime-lisp-implementations
+	  '((sbcl ("sbcl" "--core" "sbcl.core-for-slime"))))
+#+END_SRC
+
+*** 2. 生成 swank core
+;; 在核心文件里直接包含 Swank 服务器, 以最大化启动速度
+; shell$ sbcl
+; * (load ".../slime/swank-loader.lisp")
+; * (swank-loader:dump-image "sbcl.core-with-swank")
+
+.emacs 文件中添加:
+#+BEGIN_SRC emacs-lisp
+(setq slime-lisp-implementations
+	  '((sbcl ("sbcl" "--core" "sbcl.core-with-swank")
+			  :init (lambda (port-file _)
+					  (format "(swank:start-server %S)\n" port-file)))))
+
+#+END_SRC
+
+
+** 缺点: 
+   1.配置略繁琐 
+   2.当升级 SLIME 或 SBCL 时, 需要创建一个新的 core file.
+
+
+** 问题
+  当为了<加快 Swank 加载的速度>采用了上述的方法时,
+  > (ql:quickload :pack)
+  会报 
+  Don't know how to REQUIRE sb-rotate-byte.
+     [Condition of type SB-INT:EXTENSION-FAILURE]
+  错误
+
+

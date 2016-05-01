@@ -1,0 +1,18 @@
+~/.swank.lisp trick
+
+From: http://lispblog.xach.com/post/129215925278/my-new-favorite-slimesbclccl-trick
+
+My new favorite slime/sbcl/ccl trick
+
+Thanks to _death on #lisp, I just updated ~/.swank.lisp with this:
+
+#+sbcl
+(push (lambda (&rest args)
+        (apply #'swank:ed-in-emacs args)
+        t)
+      sb-ext:*ed-functions*)
+Update: Matt Emerson clued me in to this:
+
+#+ccl
+(setq ccl:*resident-editor-hook* #'swank:ed-in-emacs)
+Now I can (ed “foo.lisp”) in the repl and it pops open in a new buffer. Fantastic!

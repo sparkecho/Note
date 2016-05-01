@@ -1,0 +1,127 @@
+Yasnippet 笔记
+
+* 1. 安装
+  (1) 使用 elpa 包管理安装
+  (2) 手动安装
+
+* 2. 配置
+  在 .emacs 中加入如下几行
+
+  (add-to-list 'load-path "path-to-yasnippet")
+  (require 'yasnippet)
+  (yas-global-mode 1)
+
+  如果是 elpa 安装的, 第一行可以省略
+
+* 3. 在 yasnippet 安装的目录下的 snippets 目录中放置着各种语言的补全模板
+   如 path-of-yasnippet/snippets/java-mode 目录下的 for 文件中的模板:
+
+   # -*- mode: snippet -*-
+   # name: for
+   # key: for
+   # --
+   for (${1:int i = 0}; ${2:i < N}; ${3:i++}) {
+       $0
+   }
+
+   key: 后面的名字为补全时使用的关键字,
+   		在 java-mode 下, 输入 for 按下 Tab ( 或 C-i ) 即可补全为
+		for (int i = 0; i < N; i++) {
+
+        }
+		模版中以 $n 定义光标定位的位置，从 1 开始，展开后光标就定位在 $1, 然后按
+		TAB 键在不同的位置间移动，碰到 $0 时退出模版，开始输入自定义项。
+		${n:blabla} blabla 为默认显示的字符串
+
+
+* 参考：
+
+YASnippet 基础入门
+http://blog.waterlin.org/articles/emacs-yasnippet-basic-usage.html
+** 1. 安装
+** 2. 使用方法
+   总的来说，正确安装好 YASnippet 后，只要输入缩略词，然后用
+   TAB 键或是 C-i 就可以完成扩展了。
+
+   在 Emacs 启动后，YASnippet 模式是作为一个子模式 (minor mode) 存在
+   于各个模式之中。要用 YASnippet 进行缩略词补全有好多种方法，最
+   常用的补全方法有三种：输入一个缩写词 (abbrev)，然后用 snippet
+   的触发键 (trigger key) 来补全。这个键默认是 TAB 或是 C-i，当然，
+   也可以用命令 M-x yas/expand 来进行扩展。用命令 M-x
+   yas/insert-snippet 直接进行输入，输入完这个命令后，会弹出一个
+   补全窗口，提示当前主模式下可以补全的模板。直接从菜单栏里的
+   YASnippet 里，选择内容进行输入。
+   
+   有关 YASnippet 使用的更详细叙述，可以参考官方文档 Expanding
+   snippets。YASnippet 个性化定制的命令
+   
+   虽然 YASnippet 已经自带了许多常用的扩展模板，但是很多情况下，我们
+   需要根据自己的实际情况，来进行模板定制。以下是扩展 YASnippet
+   常用的一些命令：
+   用命令 M-x yas/new-snippet 就可以新建一个扩展模板 (snippet)，YASnippet 会自动提示存放该模板的最佳目录。
+   用命令 M-x yas/find-snippets 可以查找 snippet 文件，默认的目录是当前主模式下的模板文件 (snippet file) 的存放目录。
+   用命令 M-x yas/visit-snippet-file 可以通过弹出的对话框来寻找你需要的模板文件 (snippet file)，在对话框里选择一个选项，
+   就会打开这个模板文件 (snippet file) 来让你编辑。
+   
+   org 里的 YASnippet 使用实例
+   下面就用一个实例，结合 YASnippet 的语法规则，来简单介绍一下
+   YASnippet 最基本的使用。
+   
+   我在 org 模式里写笔记或是发布网页的时候，经常需要添加一个有关版权
+   声明的文字（或为公司，或为自己）。因为公司和私人的内容都混在一起，
+   所以我需要有多个模板。下面就以添加我个人版权声明的模板为例，介绍一
+   下配置 YASnippet 的完整步骤。
+
+*** (1). 添加一个有关个人版权的 snippet
+
+    首先，在 org 模式里，用命令 M-x yas/new-snippet 来添加一个 snippet，
+    输入你想要的 snippet 名称，我这里输入
+
+      Copyright
+
+    YASnippet 会自动生成一个名叫 Copyright.yasnippet 的文件，生成的内
+    容如下：
+
+      # -*- mode: snippet -*- name: Copyright key: binding:
+      # "keybinding" expand-env: ((some-var some-value)) --
+
+*** (2). 现在我们只需要根据 YASnippet 的相关语法来修改这个文件就可以了。
+    上面文件关键词的基本语法含义如下：# name: 显示在弹出菜单里的
+    snippet 名称# key: 缩略词，即你在用 TAB 键进行扩展前输入的关键词，
+    如果不设定，则把这个关键词默认为本文件名# binding: 设置使用哪个组
+    合键来直接插入这个 snippet，对于比较常用的模板内容比较有用#
+    expand-env: 用 elisp 重新设置一些环境变量# – 表示在这一行之上的全
+    是注释
+
+*** (3). 因为我们这里是配置一个最简单的模板，所以，我们删掉 # key:，#
+    binding:，# expand-env: 这三个高级定制功能。最后，我们写成类似下面
+    的东西：
+
+	# -*- mode: snippet -*-
+	# name: Copyright
+	# --
+	#+BEGIN_HTML
+	<p style="TEXT-ALIGN: center">
+	原创文章，如转载请注明：转载自细节之锤 [ <a href="http://blog.waterlin.org/">http://blog.waterlin.org/</a> ]
+	</p>
+	<p style="TEXT-ALIGN: center">
+	Copyright © WaterLin.org. All rights reserved.
+	</p>
+	#+END_HTML
+
+*** (4). 重启 Emacs 让修改生效，然后我们再回到 org 文件里，这个时候，可
+    以直接输入一个 Copyright （注意：缩略词大小写敏感），然后用 C-i 进
+    行替换（原本可以用 TAB 键的，但是 Emacs23 里的 org 模式把 TAB 键给
+    霸占了），就可以把 Copyright 这个词替换成上面用 html 写成的版权声
+    明。
+
+    在 org 模式里，我们可以用同样的方法来插入 #+begin_example,
+    #+begin_ditaa, #+begin_dot, #+begin_src 等标记，这样可以节省一大笔
+    时间。
+
+* 其他
+  一般来讲，用 YASnippet 来进行替换与自动插入，比直接用 elisp 写一个函数、
+  命令来进行插入要简单、方便得多，并且容易管理。
+
+  YASnippet 的模板语言 (Template syntax) 还有着更加灵活的用法，参见官方
+  文档 Writing snippets。

@@ -1,0 +1,5 @@
+Haskell Note
+
+1. ghc : Haskell 的编译器
+2. ghci: Haskell 的解释器
+3. 退出 ghci 使用 :quit 命令 或 :q

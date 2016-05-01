@@ -1,0 +1,16 @@
+Note of Climacs
+
+
+编译 Documentation
+
+~**/Second-Climacs/Documentation $ make
+错误:
+! Font T1/cmr/m/n/10.95=ecrm1095 at 10.95pt not loadable: Metric (TFM) file not
+ found.
+<to be read again> 
+                   relax 
+l.100 \fontencoding\encodingdefault\selectfont
+
+原因: 缺失 ecrm1095.tfm 文件
+
+解决方法: sudo apt-get install texlive-fonts-recommended

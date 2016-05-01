@@ -1,0 +1,278 @@
+Usage Of Buildapp
+
+
+* 总述
+
+Warnning:
+	1. 每条语句后面都要加空格之后才能加 \ 来标记换行, 否则下面一行的将被认为和这条语句是相连的一条语句
+	Example:
+		buildapp\  => Wrong
+
+		buildapp \
+		--eval xxx\
+		--output yyy 会被认为是 buildapp --eval xxx--output yyy
+		xxx--output 会被认为是一条语句, 这样就会报build参数应该为偶数的错误
+
+	2. --entry 指明程序开始的入口, 必须指明, 它的参数不一定需要是 --eval 紧跟的一个函数定义
+	main 可以写在文件中, 并且名称并不需要一定是 main, 但是作为入口的 main 函数, 必须是接受一个参数
+	的函数, 如果没有参数那么在创建可执行文件的时候会报错, 如果参数过多那么在创建可执行文件的时候只是
+	风格警告(STYLE-WARNING), 但运行的时候会报错
+
+	3. --output 指明生成文件的名称, 必须指明, 文件名称可以随意, 拓展名有没有是什么并没有关系,
+	但是前提是注意在执行的时候该拓展名对应的默认打开方式
+
+
+
+
+
+* 示例
+
+** Example 1:
+
+$ buildapp \
+    --eval '(defun main (argv) (declare (ignore argv)) (write-line "Hello, world"))' \
+    --entry main \
+    --output hello-world
+    
+$ ./hello-world
+Hello,world
+
+
+
+
+** Example 2:
+   
+*** (1) 可执行文件生成过程:
+	
+	~ » buildapp \                    
+	--load-path ~/code/cl/buildapp/ \
+	--load fib.lisp \
+	--eval '(defun main (arg) (declare (ignore arg)) (run))' \
+	--entry main \					
+	--output fib
+	;; loading file #P"/home/user_name/code/cl/buildapp/fib.lisp"
+	[undoing binding stack and other enclosing state... done]
+	[saving current Lisp image into fib:
+	writing 4944 bytes from the read-only space at 0x20000000
+	writing 3168 bytes from the static space at 0x20100000
+	writing 46727168 bytes from the dynamic space at 0x1000000000
+	done]
+	------------------------------------------------------------
+
+
+*** (2) 运行效果:
+	
+	~ » ./fib                         
+	Fibonacci Calculator starts
+	Calculate fib(n), n = 
+	3
+	fib(3) is 3
+	Calculate fib(n), n = 
+	exit
+	Bye.
+	
+
+
+*** (3) 源代码内容 (~/code/cl/buildapp/fib.lisp 的内容):
+
+#+BEGIN_SRC lisp
+(defun fib (n)
+  (cond ((< n 2) 1)
+		(t (+ (fib (- n 1))
+			  (fib (- n 2))))))
+
+(defun prompt ()
+  (format t "Calculate fib(n), n = ~%"))
+
+(defun run ()
+  (format t "Fibonacci Calculator starts~%")
+  (prompt)
+  (do ((n (read) (read)))
+	  ((eql n 'exit) (format t "Bye.~%"))
+	(if (integerp n)
+		(format t "fib(~d) is ~d~%" n (fib n))
+		(format t "Wrong type of argument.~%"))
+	(prompt)))
+#+END_SRC
+
+
+
+*** (4) 后记
+
+	如果文件中加入了一个入口函数(main函数):
+    #+BEGIN_SRC lisp
+    (defun entry (arg)
+      (declare (ignore arg))
+      (run))
+    #+END_SRC
+
+	那么生成可执行文件的指令可以写为如下所示:
+	~ » buildapp \                                                          
+	--load-path ~/code/cl/buildapp/ \
+	--load fib.lisp \
+	--entry entry \					# name of main function (the entry of this program)
+	--output fib
+
+
+
+** Example 3: 导出包含其他运行库的程序
+
+*** (1) 前期工作 (将所需要加载的库加载到 CL 编译器中, 并将加载信息写入一个文件中)
+	~ » sbcl \                                                                                                                         
+	--no-userinit --no-sysinit --non-interactive \
+	--load ~/quicklisp/setup.lisp \
+	--eval '(ql:quickload :mcclim)' \
+	--eval '(ql:write-asdf-manifest-file "quicklisp-manifest.txt")'
+	This is SBCL 1.2.16, an implementation of ANSI Common Lisp.
+	More information about SBCL is available at <http://www.sbcl.org/>.
+	
+	SBCL is free software, provided as is, with absolutely no warranty.
+	It is mostly in the public domain; some portions are provided under
+	BSD-style licenses.  See the CREDITS and COPYING files in the
+	distribution for more information.
+	To load "mcclim":
+	Load 1 ASDF system:
+    mcclim
+	; Loading "mcclim"
+	.................................
+	
+
+*** (2) 可执行文件生成过程(需要加载上一步生成的加载信息文件和库的名称):
+
+	~ » buildapp \                                                                                                                     
+	--manifest-file quicklisp-manifest.txt \
+	--load-system mcclim \
+	--load-path ~/code/cl/buildapp \
+	--load clim_example.lisp \
+	--eval '(defun main (arg) (declare (ignore arg)) (app:app-main))' \
+	--entry main \
+	--output climexample
+	;; loading system "mcclim"
+	;; loading file #P"/home/user_name/code/cl/buildapp/clim_example.lisp"
+	[undoing binding stack and other enclosing state... done]
+	[saving current Lisp image into climexample:
+	writing 4944 bytes from the read-only space at 0x20000000
+	writing 3168 bytes from the static space at 0x20100000
+	writing 92372992 bytes from the dynamic space at 0x1000000000
+	done]
+
+
+*** (3) 运行效果:
+	~ » ./climexample
+	打开一个图形框
+
+
+
+*** (4) 源代码内容 (~/code/cl/buildapp/climexample.lisp 的内容):
+
+;; McCLIM User's Manual
+;; Chapter 3: The First Application, P7
+
+#+BEGIN_SRC lisp
+(in-package :cl-user)
+
+(defpackage :app
+  (:use :clim :clim-lisp)
+  (:export :app-main))
+
+(in-package :app)
+(define-application-frame superapp ()
+  ()
+  (:panes (int :interactor :height 400 :width 600))
+  (:layouts (default int)))
+
+(defun app-main ()
+  (run-frame-top-level (make-application-frame 'superapp)))
+#+END_SRC
+
+*** (5) 后记
+	quicklisp-manifest.txt 文件中写的都是类似于下面格式的加载信息:
+	/home/user_name/quicklisp/dists/quicklisp/software/mcclim-20150709-git/mcclim.asd
+
+
+
+
+
+* Buildapp 帮助文档:
+
+
+$ buildapp --help
+
+Usage: buildapp --output OUTPUT-FILE [--flag1 value1 ...]
+
+** Required flags:
+
+*** --output OUTPUT-FILE      
+                              Use OUTPUT-FILE as the name of the executable
+                              to create
+
+
+** Entry-point flags:
+
+*** --entry NAME              
+                              Use the function identified by NAME as the
+                              executable's toplevel function. Called
+                              with SB-EXT:*POSIX-ARGV* as its only
+                              argument. If NAME has a colon, it is
+                              treated as a package separator,
+                              otherwise CL-USER is the implied
+                              package.
+
+*** --dispatched-entry DNAME  
+	                          Specify one possible entry function, depending
+                              on the name of the file that is used to
+                              start the application. The syntax of
+                              DNAME is APPLICATION-NAME/ENTRY-NAME. If the
+                              name used to start the executable matches
+                              APPLICATION-NAME, use ENTRY-NAME as the
+                              entry point. This can be used to choose
+                              one of many possible entry points by
+                              e.g. symlinking names to the application
+                              executable. If APPLICATION-NAME is empty, the
+                              specified ENTRY-NAME is used as a default
+                              if no other application names match. There
+                              may be any number of dispatched entry points,
+                              but only one default.
+
+
+*** Action flags:
+  --load FILE               Load FILE. CL:*PACKAGE* is bound to the CL-USER
+                              package before loading
+  --load-system NAME        Load an ASDF system identified by NAME
+  --require NAME            Use CL:REQUIRE to load NAME
+  --eval CODE               Use CL:EVAL to evaulate CODE. The code is read
+                              with CL:READ-FROM-STRING in the CL-USER package
+
+
+** 
+There may be any number of load/load-system/require/eval flags. Each
+is executed in command-line order before creating an executable.
+
+*** Load path flags:
+  --load-path DIRECTORY     When handling a --load, search DIRECTORY for
+                              files to load
+  --asdf-path DIRECTORY     When handling a --load-system, search DIRECTORY
+                              for ASDF system files to load
+  --asdf-tree DIRECTORY     When handling a --load-system, search DIRECTORY
+                              and all its subdirectories for ASDF system
+                              files to load
+  --manifest-file FILE      When handling a --load-system, read a list of
+                              ASDF system file pathnames from FILE as
+                              possible matching systems.
+
+
+** 
+There may be any number of load-path/asdf-path/asdf-tree/manifest-file
+flags. They take priority in command-line order.
+
+*** Other flags:
+  --compress-core           Compress the core or executable; requires
+                              configuration support in SBCL
+  --core-only               Make a core file only, not an executable
+  --dynamic-space-size MB   Pass a --dynamic-space-size option to SBCL
+                              when building; value is megabytes
+  --help                    Show this usage message
+  --logfile FILE            Log compilation and load output to FILE
+  --sbcl PATH-TO-SBCL       Use PATH-TO-SBCL instead of the sbcl program
+                              found in your PATH environment variable
+For the latest documentation, see http://www.xach.com/lisp/buildapp/

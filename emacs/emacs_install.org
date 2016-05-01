@@ -1,0 +1,24 @@
+emacs 从源码安装
+
+* 1. 首先检查构建所依赖的包是否都已经安装
+  $ ./autogen.sh
+  安装报告的未安装包
+
+* 2. 构建
+  $ ./configure
+
+* 3. 编译
+  $ make
+
+* 4. 安装
+  $ sudo make install
+
+  # install essential build tools
+  sudo apt-get install build-essential
+
+  # get all dependencies of a previous emacs version
+  sudo apt-get build-dep emacs24
+
+  $ ./configure
+  $ make
+  $ sudo make install

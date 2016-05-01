@@ -1,0 +1,11 @@
+Note of Ruby
+
+* 1. Installation
+  在 Debian 上安装 sudo apt-get install ruby-full
+  安装的是较老的稳定版本
+
+* 2. 调用 Ruby 的解释器
+  $ irb
+
+* 3. 退出 Ruby 的解释器
+  irb**> exit() 或 irb**> quit()
