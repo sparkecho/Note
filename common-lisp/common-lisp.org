@@ -44,6 +44,9 @@ Common Lisp Note
 　  
 　  
 
+** function
+   (isqrt x) ==  (values (floor (sqrt x))) 
+
 
 * 3. 符号(symbol)
    name of symbol |apl\\360| is apl\360
