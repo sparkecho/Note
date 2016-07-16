@@ -357,3 +357,9 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
 	C-c . g h    切换到历史窗口
 	C-c . g l    切换到上一个编辑窗口
 	C-c . h      更详细的帮助信息
+** 使用 GDB debug
+   M-x gdb [填写要进行debug的二进制文件] 启动 gdb
+   M-x gdb-many-windows  多窗口显示
+   详细参见:
+   http://emacser.com/emacs-gdb.htm
+   http://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html
