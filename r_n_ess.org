@@ -24,3 +24,5 @@ ESS is short for Emacs Speaks Statistic
   如果一行只有一条语句, 则不需要加 ;
 * 9. 文档
   在目录: /usr/share/R/doc; /usr/lib/R/ 下有 R 的文档
+* 10.技巧(Tricks)
+  按下划线(_)会自动转换为赋值符号箭头( <- )
