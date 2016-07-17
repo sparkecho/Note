@@ -1,0 +1,6 @@
+# 8086 assumble note
+
+* required parameter missing
+  当报 required parameter missing 错误, 
+  很有可能是因为源文件编译后的可执行文件的名称与系统的名称相同
+  改一下源文件的名称即可
