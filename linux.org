@@ -332,3 +332,6 @@ wget各种选项分类列表
        [X] zh_CN.GB18030 GB18030
        [X] zh_CN.UTF-8 UTF-8
   参考http://cs2.swfc.edu.cn/~wx672/lecture_notes/linux/install.html
+
+* 12. 文件管理器
+  Gnome 默认的文件管理器为 Nautilus (鹦鹉螺)
