@@ -1,0 +1,30 @@
+# OpenCV Note
+
+* Errors
+  1. undefined reference to symbol '_zn2cv6imreaderkns_6stringei'
+
+  ---
+  imread/imwrite and friends were moved from highgui to a new imgcodecs module.
+  
+  so you will have to
+  
+  #include "opencv2/imgcodecs.hpp"
+  
+  and link
+  
+  -lopencv_imgcodecs
+  
+  btw, include path should be:
+  
+  -I/usr/local/include
+  
+  not
+  
+  -I/usr/local/include/opencv
+  
+  http://answers.opencv.org/question/46755/first-example-code-error/
+  ---
+
+  不过不需要将包含目录改为 -I/usr/local/include,
+
+  至少对于 OpenCV3 来说包含目录为 /usr/local/include/opencv2 即可
