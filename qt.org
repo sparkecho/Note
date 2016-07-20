@@ -1,17 +1,31 @@
 # Qt Note
 
+* Qt5 中调用 OpenCV 库
+  在 (projectname).pro 中加入如下内容即可
+
+  INCLUDEPATH += /usr/local/include/opencv    # 可选的
+
+  INCLUDEPATH += /usr/local/include/opencv2
+
+  LIBS += -L/usr/local/lib/ -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs
+
 * Qt4 与 Qt5 的差别
 1. Qt4 中 QApplication 头文件被包含在 <QtGui/QApplication> 中, 
+
    Qt5 中被包含在 <QtWidgets/QApplication>
 
 2. 在 Qt5 中, .pro 文件中需要加入 
+
    ----
    QT += widgets
    ----
+
    为了更好的兼容性 .pro 文件可以写成如下格式:
+
    ----
    greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
    ----
 
 3. 在 Qt5 中 QString::toAscii() 和 QString::fromAscii() 不被建议使用(会报错),
+
    它们分别被 QString::fromLatin1() 和 QString::toLatin1() 所替代
