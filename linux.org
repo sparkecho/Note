@@ -335,3 +335,25 @@ wget各种选项分类列表
 
 * 12. 文件管理器
   Gnome 默认的文件管理器为 Nautilus (鹦鹉螺)
+* 13. 拨号上网
+1. 安装 pppoe 和 pppoeconf
+   $ sudo apt-get install pppoe
+   $ sudo apt-get install pppoeconf
+2. 设置
+   $ sudo pppoeconf
+   按照提示进行设置, 输入用户名和密码
+3. 重启
+4. 常用命令
+   $ sudo pon dsl-provider     #启用
+   $ sudo poff (dsl...)        #停用
+* 14. 软件包
+1. 安装
+2. 卸载
+3. 其他
+   在 Debian 下, 用户所安装的软件包都在目录 /var/cache/apt/archives 下有保存,
+如果用户不清理占用空间就会越来越大. 其子目录 partial 下存放着残缺的安装包.
+* 15. 查看目录所占空间的大小
+du dirname
+可以查看目录 dirname 下的各个文件的大小
+-h 参数可以以 Human Readable 的形式输出
+-s 参数只统计总和, 不以各个单独文件的大小的形式输出
