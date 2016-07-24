@@ -1,10 +1,10 @@
 # OpenCV Note
 
 * Errors
-  1. undefined reference to symbol '_zn2cv6imreaderkns_6stringei'
+** 1. undefined reference to symbol '_zn2cv6imreaderkns_6stringei'
 
-  ---
-  imread/imwrite and friends were moved from highgui to a new imgcodecs module.
+  --- imread/imwrite and friends were moved from highgui to a new
+  imgcodecs module.
   
   so you will have to
   
@@ -28,3 +28,14 @@
   不过不需要将包含目录改为 -I/usr/local/include,
 
   至少对于 OpenCV3 来说包含目录为 /usr/local/include/opencv2 即可
+
+** 2. /usr/bin/ld: cannot find -lippicv
+   (collect2: error: ld returned 1 exit status
+   Makefile:135: recipe for target 'opencv' failed
+   make: *** [opencv] Error 1)
+   当执行的命令为 g++ ... `pkg-config --cflags --libs opencv` 时出现
+
+   解决方法:
+   将下载的 ippicv_*.tgz 解压, 将其lib目录下的 ia32或intel64(依据自己平台选择)
+下的 libippicv.a 复制到 /usr/local/lib(即其他 opencv 动态链接库存放的目录) 目录下
+
