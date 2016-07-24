@@ -357,3 +357,5 @@ du dirname
 可以查看目录 dirname 下的各个文件的大小
 -h 参数可以以 Human Readable 的形式输出
 -s 参数只统计总和, 不以各个单独文件的大小的形式输出
+* 16. 以只读方式挂载磁盘
+  $ mount -o ro,auto /dev/sdax /tmp/xxx
