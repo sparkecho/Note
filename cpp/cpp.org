@@ -4,7 +4,6 @@ C++ Note
   在 gcc 默认一个未初始化的指针为 NULL, VC++6.0 中并不默认为 NULL, 所以有可能会导致不兼容
   解决方法: 比如说构建链表, 一个节点的指针域最好都初始化为 NULL.
    
-
 * 2. 判断输入的内容是否符合预期
   当 cin.fail() == true 时, 说明输入的内容不符合预期
   e.g. 
@@ -50,3 +49,33 @@ OpenCV 的命名空间 cv(using namespace cv;) 中也导出了 sort 方法.
 arr1 为 vector 的一个实例, 则
 sort( arr1.begin(), arr1.end() );
 会按升序将数组 arr1 全部排列.
+* 4. string 类
+** std::string 转 const string
+#+BEGIN_SRC cpp
+string name = "blablabla";
+const char* constName;
+constName = name.c_str();
+#+END_SRC
+** const string 转 std::string
+#+BEGIN_SRC cpp
+string str = string(const char *s);    //用c字符串s初始化
+#+END_SRC
+例:
+#+BEGIN_SRC cpp
+const char* s = "abcd";    // same as {const char* s = "abcd\0"}
+string str = string(s);
+#+END_SRC
+** 数字转 std::string
+#+BEGIN_SRC cpp
+#include <sstream>
+
+for(int i = 0; i < 3; i++)
+{
+    stringstream ss;
+    ss << i;
+    string name;
+    ss >> name;
+    name += ".txt";
+    cout << name << endl;
+}
+#+END_SRC
