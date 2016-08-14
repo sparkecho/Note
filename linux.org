@@ -1,19 +1,19 @@
 Linux Note
 
 * 1. 更改文件(夹)所有者
-   $ chown user_name pass.html     # 更改文件所有者, 将 pass.html 的所有者设置为 user_name
-   $ chown -R user_name quicklisp  # 加入 -R 参数, 递归地将 quicklisp 目录下的所有文件的所有者设置为 user_name
+   $ chown user_name pass.html # 更改文件所有者, 将 pass.html 的所有者
+   设置为 user_name $ chown -R user_name quicklisp # 加入 -R 参数, 递
+   归地将 quicklisp 目录下的所有文件的所有者设置为 user_name
 
-
+   
 * 2. 为 UUID = *** 准备的磁盘尚未就绪或不存在
 
-   For Example:
-       由于安装其他系统时误格了此 OS 的 swap 分区, 导致分区（磁盘）UUID改变．
-	   报如下错误:
-	   "为 UUID=9da69d61-8dd1-4bab-9330-9e7e288309b3 准备的磁盘尚未就绪或不存在"
+   For Example:由于安装其他系统时误格了此 OS 的 swap 分区, 导致分区
+       （磁盘）UUID改变．报如下错误: "为
+       UUID=9da69d61-8dd1-4bab-9330-9e7e288309b3 准备的磁盘尚未就绪或
+       不存在"
 
-	   (1) 查看挂载脚本中的老的UUID
-	   当前挂载脚本中的dev设备及UUID:
+	   (1) 查看挂载脚本中的老的UUID当前挂载脚本中的dev设备及UUID:
 
 	   $ cat /etc/fstab
 
@@ -25,26 +25,30 @@ Linux Note
 	   #
 	   # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 	   # / was on /dev/sda10 during installation
-	   UUID=492b6b13-75d5-4d67-9f73-2df2b989ac3b /               ext4    errors=remount-ro 0       1
+	   UUID=492b6b13-75d5-4d67-9f73-2df2b989ac3b / ext4
+	   errors=remount-ro 0 1
 	   # /boot/efi was on /dev/sda1 during installation
-	   UUID=2C37-128C  /boot/efi       vfat    defaults        0       1
+	   UUID=2C37-128C /boot/efi vfat defaults 0 1
 	   # swap was on /dev/sda9 during installation
-	   UUID=9da69d61-8dd1-4bab-9330-9e7e288309b3 none            swap    sw              0       0
+	   UUID=9da69d61-8dd1-4bab-9330-9e7e288309b3 none swap sw 0 0
 
 	   (2)查看当前磁盘（分区）的UUID
 
-	   $ blkid
-	   /dev/sda1: UUID="2C37-128C" TYPE="vfat" 
-	   /dev/sda2: UUID="E7D8-37D5" TYPE="vfat" 
-	   /dev/sda4: LABEL="Reserve" UUID="0000678400004823" TYPE="ntfs" 
-	   /dev/sda5: LABEL="Files" UUID="00041362000DEECC" TYPE="ntfs" 
-	   /dev/sda6: LABEL="forOS" UUID="7380c2f6-3ffe-47eb-93f3-2f55af1a743f" TYPE="ext4" 
-	   /dev/sda7: LABEL="Data" UUID="000B7FDA0001E7A1" TYPE="ntfs" 
-	   /dev/sda8: LABEL="Storage" UUID="5EF31040246470A2" TYPE="ntfs" 
-	   /dev/sda9: UUID="17da422b-5fa1-4d49-a8f4-a413f39db691" TYPE="swap" 
-	   /dev/sda10: UUID="492b6b13-75d5-4d67-9f73-2df2b989ac3b" TYPE="ext4" 
-	   /dev/sda11: UUID="54ddf013-3f91-474f-9f6a-7d368716a4b0" TYPE="swap" 
-	   /dev/sda12: UUID="43bba5f1-fbaf-4b97-a153-267dd39f7534" TYPE="ext4"
+	   $ blkid /dev/sda1: UUID="2C37-128C" TYPE="vfat" /dev/sda2:
+	   UUID="E7D8-37D5" TYPE="vfat" /dev/sda4: LABEL="Reserve"
+	   UUID="0000678400004823" TYPE="ntfs" /dev/sda5:
+	   LABEL="Files" UUID="00041362000DEECC" TYPE="ntfs"
+	   /dev/sda6: LABEL="forOS"
+	   UUID="7380c2f6-3ffe-47eb-93f3-2f55af1a743f" TYPE="ext4"
+	   /dev/sda7: LABEL="Data" UUID="000B7FDA0001E7A1" TYPE="ntfs"
+	   /dev/sda8: LABEL="Storage" UUID="5EF31040246470A2"
+	   TYPE="ntfs" /dev/sda9:
+	   UUID="17da422b-5fa1-4d49-a8f4-a413f39db691" TYPE="swap"
+	   /dev/sda10: UUID="492b6b13-75d5-4d67-9f73-2df2b989ac3b"
+	   TYPE="ext4" /dev/sda11:
+	   UUID="54ddf013-3f91-474f-9f6a-7d368716a4b0" TYPE="swap"
+	   /dev/sda12: UUID="43bba5f1-fbaf-4b97-a153-267dd39f7534"
+	   TYPE="ext4"
 
 	   可见: 当前 sda9 的 UUID 与原 fstab 挂载脚本中的 UUID 不符.
 
@@ -55,102 +59,74 @@ Linux Note
 
 	   将 sda9 的 UUID 更改
 
-
+	   
 * 3. gst
-	问题描述:
-		gst(gnu-smalltalk) 在 bash 下可以正常调用($ gst RTN), 但是在 zsh 下,
-	普通方式调用会报如下错误:
-		fatal: Not a git repository (or any of the parent directories): .git
-	但是如果加上 sudo 则可以调用
+	问题描述: gst(gnu-smalltalk) 在 bash 下可以正常调用($ gst
+		RTN), 但是在 zsh 下,普通方式调用会报如下错误: fatal:
+		Not a git repository (or any of the parent
+		directories): .git但是如果加上 sudo 则可以调用
 
-	错误原因:
-		未知
+	错误原因:未知
 
-	解决方法:
-		在 .zshrc 中配置别名如下
-		alias gst="/usr/local/bin/gst"
-		即将 gst 作为程序调用的路径的别名, 重新打开 zsh 即生效
+	解决方法:在 .zshrc 中配置别名如下alias
+		gst="/usr/local/bin/gst"即将 gst 作为程序调用的路径的
+		别名, 重新打开 zsh 即生效
 
-
+		
 * 4. chrome 安装问题
-	问题描述:
-		Debian 下安装 Chrome, 如果 sudo dpkg -i google-chrome**.deb 安装出错
+	问题描述: Debian 下安装 Chrome, 如果 sudo dpkg -i
+		google-chrome**.deb 安装出错
 
-	错误原因:
-		可能是由于没有先升级系统
+	错误原因:可能是由于没有先升级系统
 
-	解决方法:
-		sudo apt-get update
-		sudo apt-get upgrade
-		然后执行 sudo apt-get -f install
-		则 chrome 安装成功
+	解决方法: sudo apt-get update sudo apt-get upgrade然后执行
+		sudo apt-get -f install则 chrome 安装成功
 
-
+		
 * 5. 挂载/卸载 U 盘
 
-   查看文件系统:
-   $ df -ah
-   文件系统        容量  已用  可用 已用% 挂载点
-   ...........................................................
-   /dev/sdc1        15G   14G  1.4G   91% /media/user_name/0AC6-ACA6 #所要挂载的 U 盘
+   查看文件系统: $ df -ah文件系统 容量 已用 可用 已用% 挂载
+   点...........................................................
+   /dev/sdc1 15G 14G 1.4G 91% /media/user_name/0AC6-ACA6 #所要挂载的 U
+   盘
 
-   挂载:
-   $ mkdir /tmp/udisk
-   $ sudo mount /dev/sdc1 /tmp/udisk
+   挂载: $ mkdir /tmp/udisk $ sudo mount /dev/sdc1 /tmp/udisk
 
-   卸载
-   $ sudo umount /dev/sdc1
+   卸载$ sudo umount /dev/sdc1
 
-
+   
 * 6. 在 GUI 与 CLI 之间切换
-   切换到 CLI:  C-M-F[1~6]
-   切换到 GUI:  C-M-F7
+   切换到 CLI: C-M-F[1~6]切换到 GUI: C-M-F7
 
-
+   
 * 7. lsblk 可以查看所有的分区
-   $ lsblk
-   NAME    MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
-   sda       8:0    0 465.8G  0 disk 
-   ├─sda1    8:1    0   128M  0 part 
-   ├─sda2    8:2    0   128M  0 part 
-   ├─sda3    8:3    0    56G  0 part /
-   ├─sda4    8:4    0    60G  0 part 
-   ├─sda5    8:5    0    60G  0 part /mediuser_name/Files
-   ├─sda6    8:6    0  39.1G  0 part /mediuser_name/forOS
-   ├─sda7    8:7    0  54.1G  0 part 
-   ├─sda8    8:8    0   300M  0 part 
-   ├─sda9    8:9    0   100M  0 part /boot/efi
-   └─sda10   8:10   0 188.4G  0 part 
-   sr0      11:0    1  1024M  0 rom  
-   sr1      11:1    1  1024M  0 rom  
+   $ lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT sda 8:0 0 465.8G 0
+   disk ├─sda1 8:1 0 128M 0 part ├─sda2 8:2 0 128M 0 part ├─sda3
+   8:3 0 56G 0 part / ├─sda4 8:4 0 60G 0 part ├─sda5 8:5 0 60G 0
+   part /mediuser_name/Files ├─sda6 8:6 0 39.1G 0 part
+   /mediuser_name/forOS ├─sda7 8:7 0 54.1G 0 part ├─sda8 8:8 0
+   300M 0 part ├─sda9 8:9 0 100M 0 part /boot/efi └─sda10 8:10 0
+   188.4G 0 part sr0 11:0 1 1024M 0 rom sr1 11:1 1 1024M 0 rom
 
-
+   
 * 8. 显示系统中所有的字体
-   $ fc-list
-   一般系统中的字体存放在 /usr/share/fonts 目录下
-   $ ls /usr/share/fonts
-   cmap  opentype  truetype  type1  X11
-   向系统中加入字体只需将字体拷贝到此目录中即可
+   $ fc-list一般系统中的字体存放在 /usr/share/fonts 目录下$ ls
+   /usr/share/fonts cmap opentype truetype type1 X11向系统中加入字体只
+   需将字体拷贝到此目录中即可
 
    
 * 9. 列出系统的头文件
-   $ echo "" | g++ -v -x c++ -E -
-   会找到类似下面的这些行
-   #include "..." search starts here:
-   #include <...> search starts here:
-   /usr/include/c++/4.9
-   /usr/include/x86_64-linux-gnu/c++/4.9
+   $ echo "" | g++ -v -x c++ -E -会找到类似下面的这些行#include "..."
+   search starts here: #include <...> search starts here:
+   /usr/include/c++/4.9 /usr/include/x86_64-linux-gnu/c++/4.9
    /usr/include/c++/4.9/backward
-   /usr/lib/gcc/x86_64-linux-gnu/4.9/include
-   /usr/local/include
+   /usr/lib/gcc/x86_64-linux-gnu/4.9/include /usr/local/include
    /usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed
-   /usr/include/x86_64-linux-gnu
-   /usr/include
-   End of search list.
+   /usr/include/x86_64-linux-gnu /usr/include End of search list.
 
    中间的部分即为所需
 
-
+   
 * 10. wget
 
 如要下载 http://norvig.com/paip/ 目录下的所有文件, 应输入如下命令
@@ -159,8 +135,7 @@ $ wget -r -np -nH -L norvig.com/paip/
 	
 http://www.cnblogs.com/lidp/archive/2010/03/02/1696447.html
 
-wget 下载整个网站，或者特定目录
-需要下载某个目录下面的所有文件。命令如下
+wget 下载整个网站，或者特定目录需要下载某个目录下面的所有文件。命令如下
 
 wget -c -r -np -k -L -p www.xxx.org/pub/path/
 
@@ -168,25 +143,21 @@ wget -c -r -np -k -L -p www.xxx.org/pub/path/
 
 wget -np -nH -r --span-hosts www.xxx.org/pub/path/
 
--c 断点续传
--r 递归下载，下载指定网页某一目录下（包括子目录）的所有文件
--nd 递归下载时不创建一层一层的目录，把所有的文件下载到当前目录
--np 递归下载时不搜索上层目录，如wget -c -r www.xxx.org/pub/path/
-没有加参数-np，就会同时下载path的上一级目录pub下的其它文件
--k 将绝对链接转为相对链接，下载整个站点后脱机浏览网页，最好加上这个参数
--L 递归时不进入其它主机，如wget -c -r www.xxx.org/
-如果网站内有一个这样的链接：
-www.yyy.org，不加参数-L，就会像大火烧山一样，会递归下载www.yyy.org网站
--p 下载网页所需的所有文件，如图片等
--A 指定要下载的文件样式列表，多个样式用逗号分隔
--i 后面跟一个文件，文件内指明要下载的URL
+-c 断点续传r 递归下载，下载指定网页某一目录下（包括子目录）的所有文件
+-nd 递归下载时不创建一层一层的目录，把所有的文件下载到当前目录np 递归
+-下载时不搜索上层目录，如wget -c -r www.xxx.org/pub/path/没有加参数-np，
+-就会同时下载path的上一级目录pub下的其它文件k 将绝对链接转为相对链接，
+-下载整个站点后脱机浏览网页，最好加上这个参数L 递归时不进入其它主机，
+-如wget -c -r www.xxx.org/如果网站内有一个这样的链接：www.yyy.org，不
+-加参数-L，就会像大火烧山一样，会递归下载www.yyy.org网站p 下载网页所需
+-的所有文件，如图片等A 指定要下载的文件样式列表，多个样式用逗号分隔i
+-后面跟一个文件，文件内指明要下载的URL
 
 还有其他的用法，我从网上搜索的，也一并写上来，方便以后自己使用。
 
 wget的常见用法
 
-wget的使用格式
-Usage: wget [OPTION]… [URL]…
+wget的使用格式Usage: wget [OPTION]… [URL]…
 
 ** 用wget做站点镜像:
 wget -r -p -np -k http://dsec.pku.edu.cn/~usr_name/
@@ -197,10 +168,12 @@ wget -m http://www.tldp.org/LDP/abs/html/
 ** 在不稳定的网络上下载一个部分下载的文件，以及在空闲时段下载
 wget -t 0 -w 31 -c http://dsec.pku.edu.cn/BBC.avi -o down.log &
 # 或者从filelist读入要下载的文件列表
-wget -t 0 -w 31 -c -B ftp://dsec.pku.edu.cn/linuxsoft -i filelist.txt -o
-down.log &
+wget -t 0 -w 31 -c -B ftp://dsec.pku.edu.cn/linuxsoft -i filelist.txt
+-o down.log &
 
-上面的代码还可以用来在网络比较空闲的时段进行下载。我的用法是:在mozilla中将不方便当时下载的URL链接拷贝到内存中然后粘贴到文件filelist.txt中，在晚上要出去系统前执行上面代码的第二条。
+上面的代码还可以用来在网络比较空闲的时段进行下载。我的用法是:在mozilla
+中将不方便当时下载的URL链接拷贝到内存中然后粘贴到文件filelist.txt中，
+在晚上要出去系统前执行上面代码的第二条。
 
 
 ** 使用代理下载
@@ -211,151 +184,133 @@ wget -Y on -p -k https://sourceforge.net/projects/wvware/
 # 在环境变量中设定代理
 export PROXY=http://211.90.168.94:8080/
 # 在~/.wgetrc中设定代理
-http_proxy = http://proxy.yoyodyne.com:18023/
-ftp_proxy = http://proxy.yoyodyne.com:18023/
+http_proxy = http://proxy.yoyodyne.com:18023/ ftp_proxy =
+http://proxy.yoyodyne.com:18023/
 
 wget各种选项分类列表
 
 
 ** 启动
 
--V, –version 显示wget的版本后退出
--h, –help 打印语法帮助
--b, –background 启动后转入后台执行
--e, –execute=COMMAND
-执行`.wgetrc'格式的命令，wgetrc格式参见/etc/wgetrc或~/.wgetrc
+-V, –version 显示wget的版本后退出h, –help 打印语法帮助b, –background
+-启动后转入后台执行e, –execute=COMMAND执行`.wgetrc'格式的命令，wgetrc
+-格式参见/etc/wgetrc或~/.wgetrc
 
 
 ** 记录和输入文件
 
--o, –output-file=FILE 把记录写到FILE文件中
--a, –append-output=FILE 把记录追加到FILE文件中
--d, –debug 打印调试输出
--q, –quiet 安静模式(没有输出)
--v, –verbose 冗长模式(这是缺省设置)
--nv, –non-verbose 关掉冗长模式，但不是安静模式
--i, –input-file=FILE 下载在FILE文件中出现的URLs
--F, –force-html 把输入文件当作HTML格式文件对待
--B, –base=URL 将URL作为在-F -i参数指定的文件中出现的相对链接的前缀
-–sslcertfile=FILE 可选客户端证书
-–sslcertkey=KEYFILE 可选客户端证书的KEYFILE
-–egd-file=FILE 指定EGD socket的文件名
+-o, –output-file=FILE 把记录写到FILE文件中a, –append-output=FILE 把记
+-录追加到FILE文件中d, –debug 打印调试输出q, –quiet 安静模式(没有输出)
+-v, –verbose 冗长模式(这是缺省设置) nv, –non-verbose 关掉冗长模式，但
+-不是安静模式i, –input-file=FILE 下载在FILE文件中出现的URLs F,
+-–force-html 把输入文件当作HTML格式文件对待B, –base=URL 将URL作为在-F
+--i参数指定的文件中出现的相对链接的前缀–sslcertfile=FILE 可选客户端证
+-书–sslcertkey=KEYFILE 可选客户端证书的KEYFILE –egd-file=FILE 指定EGD
+-socket的文件名
 
 
 ** 下载
 
-–bind-address=ADDRESS
-指定本地使用地址(主机名或IP，当本地有多个IP或名字时使用)
--t, –tries=NUMBER 设定最大尝试链接次数(0 表示无限制).
--O –output-document=FILE 把文档写到FILE文件中
--nc, –no-clobber 不要覆盖存在的文件或使用.#前缀
--c, –continue 接着下载没下载完的文件
-–progress=TYPE 设定进程条标记
--N, –timestamping 不要重新下载文件除非比本地文件新
--S, –server-response 打印服务器的回应
-–spider 不下载任何东西
--T, –timeout=SECONDS 设定响应超时的秒数
--w, –wait=SECONDS 两次尝试之间间隔SECONDS秒
-–waitretry=SECONDS 在重新链接之间等待1…SECONDS秒
-–random-wait 在下载之间等待0…2*WAIT秒
--Y, –proxy=on/off 打开或关闭代理
--Q, –quota=NUMBER 设置下载的容量限制
-–limit-rate=RATE 限定下载输率
+–bind-address=ADDRESS指定本地使用地址(主机名或IP，当本地有多个IP或名字
+时使用) -t, –tries=NUMBER 设定最大尝试链接次数(0 表示无限制).  -O
+–output-document=FILE 把文档写到FILE文件中-nc, –no-clobber 不要覆盖存
+在的文件或使用.#前缀-c, –continue 接着下载没下载完的文件–progress=TYPE
+设定进程条标记-N, –timestamping 不要重新下载文件除非比本地文件新-S,
+–server-response 打印服务器的回应–spider 不下载任何东西-T,
+–timeout=SECONDS 设定响应超时的秒数-w, –wait=SECONDS 两次尝试之间间隔
+SECONDS秒–waitretry=SECONDS 在重新链接之间等待1…SECONDS秒–random-wait
+在下载之间等待0…2*WAIT秒-Y, –proxy=on/off 打开或关闭代理-Q,
+–quota=NUMBER 设置下载的容量限制–limit-rate=RATE 限定下载输率
 
 
 ** 目录
 
--nd –no-directories 不创建目录
--x, –force-directories 强制创建目录
--nH, –no-host-directories 不创建主机目录
--P, –directory-prefix=PREFIX 将文件保存到目录 PREFIX/…
-–cut-dirs=NUMBER 忽略 NUMBER层远程目录
+-nd –no-directories 不创建目录x, –force-directories 强制创建目录nH,
+-–no-host-directories 不创建主机目录P, –directory-prefix=PREFIX 将文件
+-保存到目录 PREFIX/… –cut-dirs=NUMBER 忽略 NUMBER层远程目录
 
 
 ** HTTP 选项
 
-–http-user=USER 设定HTTP用户名为 USER.
-–http-passwd=PASS 设定http密码为 PASS.
--C, –cache=on/off 允许/不允许服务器端的数据缓存 (一般情况下允许).
--E, –html-extension 将所有text/html文档以.html扩展名保存
-–ignore-length 忽略 `Content-Length'头域
-–header=STRING 在headers中插入字符串 STRING
-–proxy-user=USER 设定代理的用户名为 USER
-–proxy-passwd=PASS 设定代理的密码为 PASS
-–referer=URL 在HTTP请求中包含 `Referer: URL'头
--s, –save-headers 保存HTTP头到文件
--U, –user-agent=AGENT 设定代理的名称为 AGENT而不是 Wget/VERSION.
-–no-http-keep-alive 关闭 HTTP活动链接 (永远链接).
-–cookies=off 不使用 cookies.
-–load-cookies=FILE 在开始会话前从文件 FILE中加载cookie
+–http-user=USER 设定HTTP用户名为 USER.  http-passwd=PASS 设定http密码
+–为 PASS.  -C, –cache=on/off 允许/不允许服务器端的数据缓存 (一般情况下
+–允许).  -E, –html-extension 将所有text/html文档以.html扩展名保存
+–ignore-length 忽略 `Content-Length'头域header=STRING 在headers中插入
+–字符串 STRING proxy-user=USER 设定代理的用户名为 USER
+–proxy-passwd=PASS 设定代理的密码为 PASS referer=URL 在HTTP请求中包含
+–`Referer: URL'头-s, –save-headers 保存HTTP头到文件-U,
+––user-agent=AGENT 设定代理的名称为 AGENT而不是 Wget/VERSION.
+–no-http-keep-alive 关闭 HTTP活动链接 (永远链接).  cookies=off 不使用
+–cookies.  load-cookies=FILE 在开始会话前从文件 FILE中加载cookie
 –save-cookies=FILE 在会话结束后将 cookies保存到 FILE文件中
 
 
 ** FTP 选项
 
--nr, –dont-remove-listing 不移走 `.listing'文件
--g, –glob=on/off 打开或关闭文件名的 globbing机制
-–passive-ftp 使用被动传输模式 (缺省值).
-–active-ftp 使用主动传输模式
-–retr-symlinks 在递归的时候，将链接指向文件(而不是目录)
+-nr, –dont-remove-listing 不移走 `.listing'文件g, –glob=on/off 打开或
+-关闭文件名的 globbing机制–passive-ftp 使用被动传输模式 (缺省值).
+-–active-ftp 使用主动传输模式–retr-symlinks 在递归的时候，将链接指向文
+-件(而不是目录)
 
 
 ** 递归下载
 
--r, –recursive 递归下载－－慎用!
--l, –level=NUMBER 最大递归深度 (inf 或 0 代表无穷).
-–delete-after 在现在完毕后局部删除文件
--k, –convert-links 转换非相对链接为相对链接
--K, –backup-converted 在转换文件X之前，将之备份为 X.orig
--m, –mirror 等价于 -r -N -l inf -nr.
--p, –page-requisites 下载显示HTML文件的所有图片
+-r, –recursive 递归下载－－慎用!  l, –level=NUMBER 最大递归深度 (inf
+-或 0 代表无穷).  –delete-after 在现在完毕后局部删除文件k,
+-–convert-links 转换非相对链接为相对链接K, –backup-converted 在转换文
+-件X之前，将之备份为 X.orig m, –mirror 等价于 -r -N -l inf -nr.  p,
+-–page-requisites 下载显示HTML文件的所有图片
 
 
 ** 递归下载中的包含和不包含(accept/reject)
 
--A, –accept=LIST 分号分隔的被接受扩展名的列表
--R, –reject=LIST 分号分隔的不被接受的扩展名的列表
--D, –domains=LIST 分号分隔的被接受域的列表
-–exclude-domains=LIST 分号分隔的不被接受的域的列表
-–follow-ftp 跟踪HTML文档中的FTP链接
-–follow-tags=LIST 分号分隔的被跟踪的HTML标签的列表
--G, –ignore-tags=LIST 分号分隔的被忽略的HTML标签的列表
--H, –span-hosts 当递归时转到外部主机
--L, –relative 仅仅跟踪相对链接
--I, –include-directories=LIST 允许目录的列表
--X, –exclude-directories=LIST 不被包含目录的列表
--np, –no-parent 不要追溯到父目录
+-A, –accept=LIST 分号分隔的被接受扩展名的列表R, –reject=LIST 分号分隔
+-的不被接受的扩展名的列表D, –domains=LIST 分号分隔的被接受域的列
+-表–exclude-domains=LIST 分号分隔的不被接受的域的列表–follow-ftp 跟踪
+-HTML文档中的FTP链接–follow-tags=LIST 分号分隔的被跟踪的HTML标签的列表
+-G, –ignore-tags=LIST 分号分隔的被忽略的HTML标签的列表H, –span-hosts
+-当递归时转到外部主机L, –relative 仅仅跟踪相对链接I,
+-–include-directories=LIST 允许目录的列表X, –exclude-directories=LIST
+-不被包含目录的列表np, –no-parent 不要追溯到父目录
 
 * 11. 语言环境配置
-  $ sudo dpkg-reconfigure locales
-  选中 [X] en_US.UTF-8 UTF-8
-       [X] zh_CN.GB18030 GB18030
-       [X] zh_CN.UTF-8 UTF-8
-  参考http://cs2.swfc.edu.cn/~wx672/lecture_notes/linux/install.html
+  $ sudo dpkg-reconfigure locales选中 [X] en_US.UTF-8 UTF-8 [X]
+  zh_CN.GB18030 GB18030 [X] zh_CN.UTF-8 UTF-8参考
+  http://cs2.swfc.edu.cn/~wx672/lecture_notes/linux/install.html
 
 * 12. 文件管理器
   Gnome 默认的文件管理器为 Nautilus (鹦鹉螺)
 * 13. 拨号上网
 1. 安装 pppoe 和 pppoeconf
-   $ sudo apt-get install pppoe
-   $ sudo apt-get install pppoeconf
+   $ sudo apt-get install pppoe $ sudo apt-get install pppoeconf
 2. 设置
-   $ sudo pppoeconf
-   按照提示进行设置, 输入用户名和密码
+   $ sudo pppoeconf按照提示进行设置, 输入用户名和密码
 3. 重启
 4. 常用命令
-   $ sudo pon dsl-provider     #启用
-   $ sudo poff (dsl...)        #停用
+   $ sudo pon dsl-provider #启用$ sudo poff (dsl...)  #停用
 * 14. 软件包
 1. 安装
 2. 卸载
 3. 其他
-   在 Debian 下, 用户所安装的软件包都在目录 /var/cache/apt/archives 下有保存,
-如果用户不清理占用空间就会越来越大. 其子目录 partial 下存放着残缺的安装包.
+   在 Debian 下, 用户所安装的软件包都在目录 /var/cache/apt/archives 下
+有保存,如果用户不清理占用空间就会越来越大. 其子目录 partial 下存放着残
+缺的安装包.
 * 15. 查看目录所占空间的大小
-du dirname
-可以查看目录 dirname 下的各个文件的大小
--h 参数可以以 Human Readable 的形式输出
--s 参数只统计总和, 不以各个单独文件的大小的形式输出
+du dirname可以查看目录 dirname 下的各个文件的大小-h 参数可以以 Human
+Readable 的形式输出-s 参数只统计总和, 不以各个单独文件的大小的形式输出
 * 16. 以只读方式挂载磁盘
   $ mount -o ro,auto /dev/sdax /tmp/xxx
+* 17. 插入网线, network-manager 提示"线缆已拔出“, ”设备未托管“
+  
+1.  修改 '/etc/NetworkManager/NetworkManager.conf', 将 'managed=false'
+	修改为 'managed=true'
+	
+2.  修改 '/etc/network/interfaces', 添加在文件末尾添加有线网卡配置
+	
+	auto eth0 iface eth0 inet dhcp     #the last option decides between dhcp/manul
+	
+3.  重启 network-manager 和 networking 服务
+	
+    $ sudo service network-manager stop 
+    $ sudo service networking restart
+    $ sudo service network-manager start
