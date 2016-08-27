@@ -29,3 +29,10 @@
 3. 在 Qt5 中 QString::toAscii() 和 QString::fromAscii() 不被建议使用(会报错),
 
    它们分别被 QString::fromLatin1() 和 QString::toLatin1() 所替代
+* 播放音频
+播放音频很多时候需要在 .pro 中加入
+QT += multimedia
+如果执行 qmake . 报如下错误, 则是因为 qtmultimedia 库没有安装
+Project ERROR: Unknown module(s) in QT: multimedia
+所以, 执行如下命令即可
+$ sudo apt-get install qtmultimedia5-dev
