@@ -39,3 +39,13 @@
    将下载的 ippicv_*.tgz 解压, 将其lib目录下的 ia32或intel64(依据自己平台选择)
 下的 libippicv.a 复制到 /usr/local/lib(即其他 opencv 动态链接库存放的目录) 目录下
 
+* Matrix Typenames
+The general rule for Matrices typenames in OpenCV is:
+
+ CV_<bit_depth>(S|U|F)C<number_of_channels>
+
+S = Signed integer
+U = Unsigned integer
+F = Float 
+
+So depending on which one of the previous letters (S,U,F) you have, you will be casting <int>, <unsigned integer> or <float>.
