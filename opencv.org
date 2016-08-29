@@ -49,3 +49,56 @@ U = Unsigned integer
 F = Float 
 
 So depending on which one of the previous letters (S,U,F) you have, you will be casting <int>, <unsigned integer> or <float>.
+* SVM::train(...)
+  Bad argument 
+  (in the case of classification problem the responses must be categorical; 
+   either specify varType when creating TrainData, or pass integer responses) in train
+
+http://stackoverflow.com/questions/31287207/opencv-svm-training-data
+bool train (InputArray samples, int layout, InputArray responses)
+
+The type of responses cannot be float or double.
+
+Change
+
+float labels[4] = { 1.0, -1.0, -1.0, -1.0 };
+Mat labelsMat(4, 1, CV_32FC1, labels);
+
+to
+
+int labels[4] = { 1, -1, -1, -1 };
+Mat labelsMat(4, 1, CV_32S, labels);
+
+BTW, if you are using Linear kernel, the only parameter is C, so you do not need to setGamma.
+
+Another problem is the way to get the predicted response. Since each time there is only one
+ sample to predict, if you want to use the return value as the response, you should not pass
+ res to predict.
+
+You can change
+
+float response = svm->predict(sampleMat, res);
+
+to
+
+float response = svm->predict(sampleMat);
+
+Otherwise, if you want to use res, then the return value is no longer the response value. 
+But you can get the response from res instead.
+
+You can change
+
+if (response == 1)
+    image.at<Vec3b>(i, j) = green;
+else if (response == -1)
+    image.at<Vec3b>(i, j) = blue;
+}
+
+to
+
+if (res.at<float>(0) == 1)
+    image.at<Vec3b>(i, j) = green;
+else if (res.at<float>(0) == -1)
+    image.at<Vec3b>(i, j) = blue;
+}
+
