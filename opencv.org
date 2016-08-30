@@ -102,3 +102,18 @@ else if (res.at<float>(0) == -1)
     image.at<Vec3b>(i, j) = blue;
 }
 
+* 矩阵乘法
+http://www.ophome.cn/question/52704
+矩阵乘法，两矩阵相乘直接。此操作将尺寸[ x b ]与[ C ]尺寸B X B矩阵产生大小[ C ]
+C矩阵矩阵X。在OpenCV是使用简单的运算符来实现：
+
+C = A * B
+
+可用来替换 cvMatMul( src1, src2, dst );
+src1, src2, dst : cvArr*
+
+
+元素相乘，输出矩阵的每个像素是由其在矩阵B.输入矩阵应该是相同的大小相应的输入矩
+阵乘法，像素的形成，和输出将大小一样。这是使用mul()功能实现：
+
+output = A.mul(B);
