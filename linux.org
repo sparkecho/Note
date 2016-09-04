@@ -314,3 +314,60 @@ Readable 的形式输出-s 参数只统计总和, 不以各个单独文件的大
     $ sudo service network-manager stop 
     $ sudo service networking restart
     $ sudo service network-manager start
+* 18. 解决为满足的依赖关系
+http://www.voidcn.com/blog/supercooly/article/p-5742609.html
+root@ubuntu:/home/chao# apt-get install python-pip
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是
+因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件
+包尚未被创建或是它们已被从新到(Incoming)目录移出。
+下列信息可能会对解决问题有所帮助：
+
+下列软件包有未满足的依赖关系：
+ python-pip : 依赖: python-setuptools (>= 0.6c1) 但是它将不会被安装
+              推荐: python-dev-all (>= 2.6) 但无法安装它
+E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
+
+二、解决办法
+步骤一
+
+安装aptitude工具
+sudo apt-get install aptitude
+步骤二
+
+root@ubuntu:/home/chao# aptitude install python-pip
+
+下列“新”软件包将被安装。         
+  python-colorama{a} python-distlib{a} python-html5lib{a} python-pip 
+  python-setuptools{ab} 
+0 个软件包被升级，新安装 5 个， 0 个将被删除， 同时 0 个将不升级。
+需要获取 542 kB 的存档。 解包后将要使用 2,513 kB。
+下列软件包存在未满足的依赖关系：
+ python-setuptools : 依赖: python-pkg-resources (= 3.3-1ubuntu1) 但是 3.3-1ubuntu2 已安装。
+下列动作将解决这些依赖关系：
+
+     保持 下列软件包于其当前版本： 
+1)     python-pip [未安装的]     
+2)     python-setuptools [未安装的]
+
+是否接受该解决方案？[Y/n/q/?] n
+
+下列动作将解决这些依赖关系：
+
+     降级 下列软件包：                                                   
+1)     python-pkg-resources [3.3-1ubuntu2 (now) -> 3.3-1ubuntu1 (trusty)]
+
+是否接受该解决方案？[Y/n/q/?] Y
+
+下列软件包将被“降级”：
+  python-pkg-resources 
+下列“新”软件包将被安装。
+  python-colorama{a} python-distlib{a} python-html5lib{a} python-pip 
+  python-setuptools{a} 
+0 个软件包被升级，新安装 5 个， 1 个被降级， 0 个将被删除， 同时 0 个将不升级。
+需要获取 604 kB 的存档。 解包后将要使用 2,513 kB。
+
+您要继续吗？[Y/n/?] Y
+Successful
