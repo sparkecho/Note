@@ -371,3 +371,31 @@ root@ubuntu:/home/chao# aptitude install python-pip
 
 您要继续吗？[Y/n/?] Y
 Successful
+* 19. Debian Broadcom 无线网卡驱动
+Support: Broadcom BCM4311, BCM4312, BCM4313, BCM4321, BCM4322, BCM43224, BCM43225, 
+BCM43227, BCM43228, BCM43142, BCM4331, BCM4352, BCM4360 devices (wl)
+
+https://wiki.debian.org/wl
+** 1. 
+Add a "non-free" component to /etc/apt/sources.list for your Debian version, for example:
+
+# Debian 8 "Jessie"
+deb http://httpredir.debian.org/debian/ jessie main contrib non-free
+
+** 2. 
+Update the list of available packages. Install the relevant/latest linux-image, linux-headers and broadcom-sta-dkms packages:
+
+# apt-get update
+# apt-get install linux-image-$(uname -r|sed 's,[^-]*-[^-]*-,,') linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms
+
+** 3.
+This will also install the recommended wireless-tools package. DKMS will build the wl module for your system.
+
+Unload conflicting modules:
+
+# modprobe -r b44 b43 b43legacy ssb brcmsmac bcma
+
+** 4.
+Load the wl module:
+
+# modprobe wl
