@@ -399,3 +399,25 @@ Unload conflicting modules:
 Load the wl module:
 
 # modprobe wl
+* 20. 去除 Network Manager 中的 ifupdown(eth0) 连接
+http://askubuntu.com/questions/455736/remove-ifupdowneth0-connection
+
+Open terminal and enable super user mode.
+
+nano /etc/NetworkManager/NetworkManager.conf
+
+The contents of the file will be like this:
+
+[main]
+plugins=ifupdown,keyfile,ofono
+dns=dnsmasq  
+[ifupdown]  
+managed=true
+
+Please change the plugins section to:
+
+plugins=keyfile,ofono
+
+Restart the network manager:
+
+service network-manager restart
