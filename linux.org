@@ -421,3 +421,21 @@ plugins=keyfile,ofono
 Restart the network manager:
 
 service network-manager restart
+* 21. Linux 下游戏闪退
+报错:Failed to open BO for returned DRI2 buffer (..*.., dri2 back buffer, named 20).
+This is likely a bug in the X Server that will lead to a crash soon.
+
+Reason:
+This should be this Intel graphics driver bug: https://bugs.freedesktop.org/show_bug.cgi?id=84372
+Solve:
+Workaround (from comment #7):
+Create a file /etc/X11/xorg.conf.d/20-intel.conf with the following content:
+------------------------------------------------------------
+Section "Device"
+Identifier "Intel Graphics"
+Driver "intel"
+Option "AccelMethod" "sna"
+Option "TearFree" "true"
+EndSection
+------------------------------------------------------------
+... then restart X. 
