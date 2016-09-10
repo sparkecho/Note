@@ -79,3 +79,5 @@ for(int i = 0; i < 3; i++)
     cout << name << endl;
 }
 #+END_SRC
+* 5. error: variable ‘std::ifstreamxxx'’ has initializer but incomplete ty
+没有加头文件 #include <fstream>
