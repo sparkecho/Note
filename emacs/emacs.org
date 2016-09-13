@@ -161,7 +161,7 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
 
 
 
-* Emacs与buffer  
+* Emacs与buffer
 
 From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
 
@@ -363,3 +363,28 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
    详细参见:
    http://emacser.com/emacs-gdb.htm
    http://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html
+** 缩进(Tab vs. Space)
+默认情况下emacs是使用TAB的，下面的配置语句可设定所有遇到TAB的地方都使用适当个数的空格缩进（写到配置文件~/.emacs中）：
+(setq-default indent-tabs-mode  nil)
+M-x tabify   将所有超过两个的连接空格使用TAB替换掉。
+M-x untabify 将所有TAB使用适当个数的空格替换掉。
+http://blog.chinaunix.net/uid-22002972-id-1805467.html
+** 清理代码中的不必要的空格和TAB
+如果代码文件最后面，或者行尾有很多的不必要的空格, 可以使用 whitespace-mode 看一下当前buffer中有哪些“垃圾”。
+如果要清理, 简单的使用 whitespace-cleanup 就可以了。
+http://blog.chinaunix.net/uid-22002972-id-1805467.html
+** 使用 imenu 命令跳转到当前文件中的函数
+M-x imenu RET functionName RET
+http://blog.chinaunix.net/uid-22002972-id-1805467.html
+** 替换^M
+*** 简介
+Unix 使用一个新行（^J）字符标记一行的末尾
+Windows 使用一个回车加一个新行（^M^J）字符标志每行的末尾
+代码在 Windows 的编辑器里编辑并保存过, 就有可能出现 ^M
+
+*** 替换方法
+**** 方法(1)
+M-x replace-string RET C-q C-m RET RET
+**** 方法(2)
+使用 dos2unix 工具对文件进行转换, 但是一次转换只能消除每行末尾的一个  符号,
+如果一行中有多个  符号, 多次进行转换即可.
