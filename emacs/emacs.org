@@ -126,6 +126,22 @@ C-x r i 插入寄存器的内容，输入此键后再输入寄存器号可将寄
 
 http://blog.sina.com.cn/s/blog_61107c450100kjqg.html
 
+1.先mark矩形块 
+------------------------------------------------
+2.列编辑命令 
+------------------------------------------------
+按键 功能 
+C-x r k          ;; 剪切矩形块 
+C-x r y          ;; 粘贴矩形块 
+C-x r o          ;; 插入矩形块 
+C-x r c          ;; 删除矩形块 
+C-x r d          ;; 删除矩形块，并后面的补齐空白区
+C-x r t          ;; 填充矩形块 
+C-x C-x          ;; 交换mark点
+C-x r o          ;;在选定的矩形区域插入空白
+http://home.eeworld.com.cn/my/space-uid-93649-blogid-74390.html
+
+
 示例:
 abcde
 abcde
@@ -153,6 +169,7 @@ abcde
 ab
 2. C-x r t 输入 xx 回车(RET)
    
+
 ** 文本的搜索
 
    Emacs 可以向前, 向后搜索字符串, 搜索命令是渐进的（incremental）的,
