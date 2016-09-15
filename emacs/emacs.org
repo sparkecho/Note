@@ -1,10 +1,10 @@
 Emacs 笔记
 
 * Emacs的基本操作
-
-From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
-
-
+  
+  From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
+  
+  
 ** Emacs的命令按键
 
    Emacs中主要使用命令按钮如下
@@ -21,7 +21,7 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
 
 
 
-
+   
 ** Emacs文件的操作
 
    包括对文件的打开, 存储, 和退出。
@@ -38,7 +38,7 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
    
 
 
- 
+   
 ** Emacs缓冲区(buffer)
    
    前面提到过buffer这个东西, 其实可以理解为Emacs为你的每个文件开辟的另外一个空间, 
@@ -57,7 +57,7 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
    
 
 
-
+   
 ** 光标的移动
 
 
@@ -82,24 +82,77 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
    向下滚动一屏：C-v(view). 向上滚动一屏：M-v. 将当前行置于屏幕中间：
    C-l.  2次 C-l 置于屏幕首, 3次 C-l 置于屏幕末。
 
- 
-** 文件的编辑
-
-
-   对文本的删除, 复制, 粘贴等。
    
-   删除光标前字符：backspace（回车键上面那个）. 删除当前字符：
-   C-d(delete). 删除光标前的一个词：M-backspace. 删除光标后的一个词：
-   M-d. 删除光标处到行末的字符：C-k(kill). 删除光标处到句末的字符：
-   M-k. 撤销：C-x u(undo). 或者 C-/ 再或者 C-_ .推荐使用第一种,方便。
-   移除标记mark set:C-@, 即标记从光标处开始的字符。移除：C-w,移除mark
-   set处到现光标处的字符。召回上一次移除文字：C-y(yank). 召唤以前移除
-   的文字：M-y.注意, 在C-y使用之后使用。复制:M-w,从上一次mark set处,
-   到现在光标处的字符。使用C-y粘贴。全选：C-x h.
+** 文件的基本编辑
+对文本的删除, 复制, 粘贴等。
+删除光标前字符：         backspace
+删除当前字符：           C-d(delete)
+删除光标前的一个词：     M-backspace
+删除光标后的一个词：     M-d
+删除光标处到行末的字符： C-k(kill)
+删除光标处到句末的字符： M-k
+撤销：                   C-x u(undo)  或者 C-/ 再或者 C-_ 推荐使用第一种,方便
+移除标记mark set:        C-@          即标记从光标处开始的字符。
+移除：                   C-w          移除 mark set 处到现光标处的字符。
+召回上一次移除文字：     C-y(yank)
+召唤以前移除的文字：     M-y          注意, 在C-y使用之后使用。
+复制：                   M-w          从上一次mark set处, 到现在光标处的字符。
+粘贴：                   C-y
+全选：                   C-x h
+   
+   
+   
 
+** Emacs 下的列编辑模式
+1. 选择区域
+和普通的emacs 操作一样用 C-@ 选择高亮一块区域，注意最后光标的停留位置和初始位置之间
+必须是有列的差值的，简言之，起始光标位置和终止光标位置不在同一列后续可选操作
 
+2. 后续可选操作
+在这块区域插入空白的方格，用 C-x r o
+删除这块区域用 C-x r d （这种删除掉之后不留空白）
+删除区域       C-x r c (删掉之后原位置保留为空)
+复制并删除这块区域用 C-x r k
+粘贴刚才 C-x r k复制的区域用 C-x r y
+用字符替换选中区域用 C-x r t
 
- 
+复杂操作：
+C-x r r   copy-rectangle-to-register 将选定的矩形区域复制到某个寄存器
+选中去区域后  C-x r r 将选中区域复制到寄存器， 在输入这组键后命令栏会等待你输入寄存器号，
+这时随便输入一个数字即可，不过的记得它，因为待会儿粘贴的时候还得用到这个寄存器号。 
+我刚开始就是被这个寄存器号搞得头晕，半天没弄明白是什么意思，现在理解这不过是对操作的区域做一个编号，
+待会在操作时比如复制时可以根据这个号码选择之前操作的区域。
+C-x r i 插入寄存器的内容，输入此键后再输入寄存器号可将寄存器中的内容插入到当前区域。
+
+http://blog.sina.com.cn/s/blog_61107c450100kjqg.html
+
+示例:
+abcde
+abcde
+abcde
+abcde
+abcde
+
+目标: 将每行的第一个字符换为 ff
+操作: 
+1. 选中如下区域
+abcde
+abcde
+abcde
+abcde
+a
+2. C-x r t 输入 ff 回车(RET)
+
+目标: 将每行的第二个字符换为 xx
+操作:
+1. 选中如下区域
+ bcde
+abcde
+abcde
+abcde
+ab
+2. C-x r t 输入 xx 回车(RET)
+   
 ** 文本的搜索
 
    Emacs 可以向前, 向后搜索字符串, 搜索命令是渐进的（incremental）的,
@@ -114,7 +167,7 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
 
 
 
- 
+   
 ** 多窗口
 
    Emacs迷人之处很多, 能在一个屏幕上同时显示多个文件就是其中之一。
@@ -132,7 +185,7 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
    在新窗口中打开文件：C-x 4 C-f.
 
 
- 
+   
 ** 更多帮助（more help）
 
    Emacs提供的功能实在是太多了, 更多的内容可以在Help文档中查看。
@@ -160,7 +213,7 @@ From: http://www.cnblogs.com/leohxj/archive/2012/02/20/2359427.html
 
 
 
-
+   
 * Emacs与buffer
 
 From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
@@ -288,7 +341,7 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
    
    C-x 5 2：新建一个frame;   
    
-
+   
 * Emacs与文件
 
 ** emacs 产生的 *~ 和 #*# 文件
@@ -312,7 +365,7 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
             yes <Return> 
    来继续恢复自动保存的数据。
    
-
+   
 * 设置主题
 
   如, 设置了一个主题名为 bla-theme.el
@@ -342,21 +395,21 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
    C-u M-.                                 寻找标签的下一个定义
 
 *** ecb
-	使用 M-x ecb-active 激活 ECB, 或者打开一个源码文件, 选择 tools-->Start Code Browser(ECB)
+    使用 M-x ecb-active 激活 ECB, 或者打开一个源码文件, 选择 tools-->Start Code Browser(ECB)
 成功激活后Emacs窗口会被切成左右两半。左边的几个窗口依次显示：
-	1. 目录,
-	2. 当前目录下的文件,
-	3. 当前文件中的函数/全局变量等定义,
-	4. 文件浏览历史。
-	如果打开了一个源文件后函数定义窗口里面是空的, 有可能是因为这个项目过大cedet尚未完成对它的分析,
+    1. 目录,
+    2. 当前目录下的文件,
+    3. 当前文件中的函数/全局变量等定义,
+    4. 文件浏览历史。
+    如果打开了一个源文件后函数定义窗口里面是空的, 有可能是因为这个项目过大cedet尚未完成对它的分析,
 闲置一段时间后就能看到文件里的定义。
     快捷键：
-	C-c . g d    切换到目录窗口
-	C-c . g m    切换到函数/方法窗口
-	C-c . g s    切换到文件窗口
-	C-c . g h    切换到历史窗口
-	C-c . g l    切换到上一个编辑窗口
-	C-c . h      更详细的帮助信息
+    C-c . g d    切换到目录窗口
+    C-c . g m    切换到函数/方法窗口
+    C-c . g s    切换到文件窗口
+    C-c . g h    切换到历史窗口
+    C-c . g l    切换到上一个编辑窗口
+    C-c . h      更详细的帮助信息
 ** 使用 GDB debug
    M-x gdb [填写要进行debug的二进制文件] 启动 gdb
    M-x gdb-many-windows  多窗口显示
