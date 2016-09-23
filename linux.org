@@ -439,3 +439,6 @@ Option "TearFree" "true"
 EndSection
 ------------------------------------------------------------
 ... then restart X. 
+* 22. locate 查找
+新安装的软件或库使用 locate 可能找不到, 需要先更新 locate 查找使用的数据库:
+$ sudo updatedb
