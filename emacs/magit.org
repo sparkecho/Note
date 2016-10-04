@@ -1,0 +1,31 @@
+Magit 笔记
+* 快捷键
+  C-x g Start magit (M-x magit-status) 需要设置 (global-set-key (kbd "C-x g") 'magit-status)
+  s     Stage file
+  S     Stage all files
+  u     Unstage file
+  c     Commit staged files. C-c C-c after writing commit message or C-c C-k to abort. C-c C-a sdlkfjlkdfj
+  b b   To switch to a branch
+  b m   Rename branch
+  b d   Delete branch
+  b v   List branches (can checkout from resultant screen using RET)
+  P P   Git push
+  f f   Git fetch
+  F F   Git pull
+  TAB   Shows diff of file in the list or expand collapse section. Stage and unstage actually work on bits of the diff as well.
+  i     Ignore file (adds to .gitignore)
+  k     Delete. Deletes untracked file and stashes (on section header it deletes all untracked files). If you’re positioned in a diff for an uncommited file you can also delete just the hunk.
+  l l   Show history
+  l L   Show history in verbose format
+  t t   Make lightweight tag
+  t a   Make annotated tag
+  x     Revert commit history to entered revision
+  z z   Create a stash
+  a     Apply a stash
+  A     Apply the stash and pop it off the stash list
+  z s   Creates a snapshot (the stash gets created but the working tree is not deleted.
+  w     Show how other branches related to the current one
+  m m   Start merging. In the event of conflicts resolve changes using e then stage with s.
+  R     Starts a rebase R c will continue a rebase. Stage resolved conflicts before continuing.
+  
+  From: https://orthogonal.me/2012/06/23/magit-keybindings/
