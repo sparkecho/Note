@@ -9,7 +9,9 @@ Shadowsocks on Debian
 
 
 * 2. 配置
-
+** 客户端配置文件
+格式: .config.json
+工具: ss.sh
 ** Firefox 中配置 Shadowsocks
 
 AutoProxy
