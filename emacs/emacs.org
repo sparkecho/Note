@@ -458,3 +458,30 @@ M-x replace-string RET C-q C-m RET RET
 **** 方法(2)
 使用 dos2unix 工具对文件进行转换, 但是一次转换只能消除每行末尾的一个  符号,
 如果一行中有多个  符号, 多次进行转换即可.
+** FlyCheck
+*** c++11 support
+Flycheck provides the option flycheck-gcc-language-standard for this purpose. 
+
+You should not set it globally, because that will break checking of C files, 
+
+but you can set it from c++-mode-hook with the following code in your init file:
+
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+
+However, I would recommend against this. Instead, use Directory Variables to 
+
+configure the language standard per project.
+
+Open the root directory of your project in Dired with C-x d, and then type 
+
+M-x add-dir-local-variable RET c++-mode RET flycheck-gcc-language-standard RET "c++11". 
+
+This will create a .dir-locals.el file in the root directory of your project. 
+
+Emacs reads this file whenever you visit a file from this directory or any subdirectory, 
+
+and sets variables according to the rules in this file. Specifically, Emacs will now 
+
+set the language standard for Flycheck syntax checking to C++ 11 for all C++ files in 
+
+your project.
