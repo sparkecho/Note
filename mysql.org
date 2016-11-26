@@ -40,3 +40,41 @@ server: localhost
 * 与保留字冲突
 在Mysql中，当表名或字段名乃至数据库名和保留字冲突时，
 在sql语句里可以用一组反引号（`）括起来。
+* function
+** 定义
+delimiter $$
+
+create function addUser(username char(20),  password char(20))
+returns char(20)
+begin
+  insert User(username,password) values(username, password);
+  return (select username from User where id = 1);
+end $$
+
+delimiter ;
+
+** 调用
+select addUser('aaa', '123321');
+
+* procedure
+** 定义
+delimiter $$
+
+create procedure addSubject (sname char(20))
+modifies sql data
+begin
+  declare strsql varchar(200);
+  set strsql = concat('alter table Report add column ', sname, ' int');
+  set @sql1 = strsql;
+  prepare stmt_p from @sql1;
+  execute stmt_p;
+end $$
+
+delimiter ;
+
+** 调用
+call addSubject('Physics');
+
+* function 和 procedure 的区别
+function 不能修改 table 的属性, 只能修改 table 中存储的数据, 
+而procedure 可以修改 table 的属性.
