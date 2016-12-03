@@ -41,7 +41,17 @@ server: localhost
 在Mysql中，当表名或字段名乃至数据库名和保留字冲突时，
 在sql语句里可以用一组反引号（`）括起来。
 * function
-** 定义
+** example1
+delimiter $$
+
+create function avg(num1 int, num2 int)
+returns float(3,2)
+return (num1+num2)/ 2 $$
+
+delimiter ;
+
+** example2
+*** 定义
 delimiter $$
 
 create function addUser(username char(20),  password char(20))
@@ -53,11 +63,22 @@ end $$
 
 delimiter ;
 
-** 调用
+*** 调用
 select addUser('aaa', '123321');
 
 * procedure
-** 定义
+** example1
+delimiter $$
+
+create procedure Proc()
+begin
+  select * from User;
+end $$
+
+delimiter ;
+
+** example2
+*** 定义
 delimiter $$
 
 create procedure addSubject (sname char(20))
@@ -72,7 +93,7 @@ end $$
 
 delimiter ;
 
-** 调用
+*** 调用
 call addSubject('Physics');
 
 * function 和 procedure 的区别
