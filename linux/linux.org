@@ -5,7 +5,7 @@ Linux Note
    设置为 user_name $ chown -R user_name quicklisp # 加入 -R 参数, 递
    归地将 quicklisp 目录下的所有文件的所有者设置为 user_name
 
-   
+
 * 2. 为 UUID = *** 准备的磁盘尚未就绪或不存在
 
    For Example:由于安装其他系统时误格了此 OS 的 swap 分区, 导致分区
@@ -59,7 +59,7 @@ Linux Note
 
 	   将 sda9 的 UUID 更改
 
-	   
+
 * 3. gst
 	问题描述: gst(gnu-smalltalk) 在 bash 下可以正常调用($ gst
 		RTN), 但是在 zsh 下,普通方式调用会报如下错误: fatal:
@@ -72,7 +72,7 @@ Linux Note
 		gst="/usr/local/bin/gst"即将 gst 作为程序调用的路径的
 		别名, 重新打开 zsh 即生效
 
-		
+
 * 4. chrome 安装问题
 	问题描述: Debian 下安装 Chrome, 如果 sudo dpkg -i
 		google-chrome**.deb 安装出错
@@ -82,7 +82,7 @@ Linux Note
 	解决方法: sudo apt-get update sudo apt-get upgrade然后执行
 		sudo apt-get -f install则 chrome 安装成功
 
-		
+
 * 5. 挂载/卸载 U 盘
 
    查看文件系统: $ df -ah文件系统 容量 已用 可用 已用% 挂载
@@ -94,11 +94,11 @@ Linux Note
 
    卸载$ sudo umount /dev/sdc1
 
-   
+
 * 6. 在 GUI 与 CLI 之间切换
    切换到 CLI: C-M-F[1~6]切换到 GUI: C-M-F7
 
-   
+
 * 7. lsblk 可以查看所有的分区
    $ lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT sda 8:0 0 465.8G 0
    disk ├─sda1 8:1 0 128M 0 part ├─sda2 8:2 0 128M 0 part ├─sda3
@@ -108,13 +108,13 @@ Linux Note
    300M 0 part ├─sda9 8:9 0 100M 0 part /boot/efi └─sda10 8:10 0
    188.4G 0 part sr0 11:0 1 1024M 0 rom sr1 11:1 1 1024M 0 rom
 
-   
+
 * 8. 显示系统中所有的字体
    $ fc-list一般系统中的字体存放在 /usr/share/fonts 目录下$ ls
    /usr/share/fonts cmap opentype truetype type1 X11向系统中加入字体只
    需将字体拷贝到此目录中即可
 
-   
+
 * 9. 列出系统的头文件
    $ echo "" | g++ -v -x c++ -E -会找到类似下面的这些行#include "..."
    search starts here: #include <...> search starts here:
@@ -126,13 +126,13 @@ Linux Note
 
    中间的部分即为所需
 
-   
+
 * 10. wget
 
 如要下载 http://norvig.com/paip/ 目录下的所有文件, 应输入如下命令
 # paip后的 / 不可省，否则被下载的则是页面 paip
 $ wget -r -np -nH -L norvig.com/paip/
-	
+
 http://www.cnblogs.com/lidp/archive/2010/03/02/1696447.html
 
 wget 下载整个网站，或者特定目录需要下载某个目录下面的所有文件。命令如下
@@ -301,25 +301,25 @@ Readable 的形式输出-s 参数只统计总和, 不以各个单独文件的大
 * 16. 以只读方式挂载磁盘
   $ mount -o ro,auto /dev/sdax /tmp/xxx
 * 17. 插入网线, network-manager 提示"线缆已拔出“, ”设备未托管“
-  
+
 1.  修改 '/etc/NetworkManager/NetworkManager.conf', 将 'managed=false'
 	修改为 'managed=true'
-	
+
 2.  修改 '/etc/network/interfaces', 添加在文件末尾添加有线网卡配置
-	
+
 	auto eth0 iface eth0 inet dhcp     #the last option decides between dhcp/manul
-	
+
 3.  重启 network-manager 和 networking 服务
-	
-    $ sudo service network-manager stop 
+
+    $ sudo service network-manager stop
     $ sudo service networking restart
     $ sudo service network-manager start
 * 18. 解决为满足的依赖关系
 http://www.voidcn.com/blog/supercooly/article/p-5742609.html
 root@ubuntu:/home/chao# apt-get install python-pip
 正在读取软件包列表... 完成
-正在分析软件包的依赖关系树       
-正在读取状态信息... 完成       
+正在分析软件包的依赖关系树
+正在读取状态信息... 完成
 有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是
 因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件
 包尚未被创建或是它们已被从新到(Incoming)目录移出。
@@ -327,7 +327,7 @@ root@ubuntu:/home/chao# apt-get install python-pip
 
 下列软件包有未满足的依赖关系：
  python-pip : 依赖: python-setuptools (>= 0.6c1) 但是它将不会被安装
-              推荐: python-dev-all (>= 2.6) 但无法安装它
+	      推荐: python-dev-all (>= 2.6) 但无法安装它
 E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
 
 二、解决办法
@@ -339,50 +339,50 @@ sudo apt-get install aptitude
 
 root@ubuntu:/home/chao# aptitude install python-pip
 
-下列“新”软件包将被安装。         
-  python-colorama{a} python-distlib{a} python-html5lib{a} python-pip 
-  python-setuptools{ab} 
+下列“新”软件包将被安装。
+  python-colorama{a} python-distlib{a} python-html5lib{a} python-pip
+  python-setuptools{ab}
 0 个软件包被升级，新安装 5 个， 0 个将被删除， 同时 0 个将不升级。
 需要获取 542 kB 的存档。 解包后将要使用 2,513 kB。
 下列软件包存在未满足的依赖关系：
  python-setuptools : 依赖: python-pkg-resources (= 3.3-1ubuntu1) 但是 3.3-1ubuntu2 已安装。
 下列动作将解决这些依赖关系：
 
-     保持 下列软件包于其当前版本： 
-1)     python-pip [未安装的]     
+     保持 下列软件包于其当前版本：
+1)     python-pip [未安装的]
 2)     python-setuptools [未安装的]
 
 是否接受该解决方案？[Y/n/q/?] n
 
 下列动作将解决这些依赖关系：
 
-     降级 下列软件包：                                                   
+     降级 下列软件包：
 1)     python-pkg-resources [3.3-1ubuntu2 (now) -> 3.3-1ubuntu1 (trusty)]
 
 是否接受该解决方案？[Y/n/q/?] Y
 
 下列软件包将被“降级”：
-  python-pkg-resources 
+  python-pkg-resources
 下列“新”软件包将被安装。
-  python-colorama{a} python-distlib{a} python-html5lib{a} python-pip 
-  python-setuptools{a} 
+  python-colorama{a} python-distlib{a} python-html5lib{a} python-pip
+  python-setuptools{a}
 0 个软件包被升级，新安装 5 个， 1 个被降级， 0 个将被删除， 同时 0 个将不升级。
 需要获取 604 kB 的存档。 解包后将要使用 2,513 kB。
 
 您要继续吗？[Y/n/?] Y
 Successful
 * 19. Debian Broadcom 无线网卡驱动
-Support: Broadcom BCM4311, BCM4312, BCM4313, BCM4321, BCM4322, BCM43224, BCM43225, 
+Support: Broadcom BCM4311, BCM4312, BCM4313, BCM4321, BCM4322, BCM43224, BCM43225,
 BCM43227, BCM43228, BCM43142, BCM4331, BCM4352, BCM4360 devices (wl)
 
 https://wiki.debian.org/wl
-** 1. 
+** 1.
 Add a "non-free" component to /etc/apt/sources.list for your Debian version, for example:
 
 # Debian 8 "Jessie"
 deb http://httpredir.debian.org/debian/ jessie main contrib non-free
 
-** 2. 
+** 2.
 Update the list of available packages. Install the relevant/latest linux-image, linux-headers and broadcom-sta-dkms packages:
 
 # apt-get update
@@ -410,8 +410,8 @@ The contents of the file will be like this:
 
 [main]
 plugins=ifupdown,keyfile,ofono
-dns=dnsmasq  
-[ifupdown]  
+dns=dnsmasq
+[ifupdown]
 managed=true
 
 Please change the plugins section to:
@@ -438,7 +438,7 @@ Option "AccelMethod" "sna"
 Option "TearFree" "true"
 EndSection
 ------------------------------------------------------------
-... then restart X. 
+... then restart X.
 * 22. locate 查找
 新安装的软件或库使用 locate 可能找不到, 需要先更新 locate 查找使用的数据库:
 $ sudo updatedb
@@ -572,8 +572,7 @@ From: http://www.cnblogs.com/MonkeyF/archive/2013/05/13/3076466.html
 (使用 lspci -nn | grep VGA 并不是很恰当, 因为有些显卡命名不是这样的)
 * 27. shadowsocks-qt5
 openwares.net/linux/debian-shadowsocks-qt5-install.html
-<<<<<<< HEAD
-=======
+
 * 28. 鼠标移动窗口
 You can move a window by pressing
 
@@ -626,10 +625,10 @@ $ sudo apt-get install proxychains
 socks5 127.0.0.1 1080
 ** 3 使用
 proxychains + 命令
-eg. 
+eg.
 $ proxychains curl cip.cc
 $ sudo proxychains apt-get update
-* 32. linux网络有线连接失败“设备未托管” 解决办法 
+* 32. linux网络有线连接失败“设备未托管” 解决办法
 问题描述：
 
 1.Linux 无线网络连接正常，有线网络无法连接
@@ -650,4 +649,3 @@ sudo /etc/NetworkManager/NetworkManager.conf
 /dev/disk/by-uuid/0000678400004823 /mnt/Reserve     auto nosuid,nodev,nofail,x-gvfs-show 0 0
 * 34. firefox 添加 flashplayer 支持
 将 flashplayer 插件 libflashplayer.so 放在 /usr/lib/mozilla/plugins 目录下
->>>>>>> 7d23ab781edc56b2bd77e36299132a95fb8eae4a
