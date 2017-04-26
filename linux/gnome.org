@@ -7,7 +7,7 @@ In gedit
 
 Here you should edit: Note that the below comments are best guess, feel free to correct me
 
-[Desktop Entry]  
+[Desktop Entry]
 Version=1.0                                #not sure what this does
 Name=My Awesome App                        #Obviously the application name
 GenericName=Awesome App                    #Difference between this and Name?
