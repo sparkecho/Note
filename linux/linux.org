@@ -567,3 +567,8 @@ sudo fc-cache -fv
 之后我们就可以使用新安装的雅黑-Consolas混合字体字体了。YaHei Consolas Hybrid
 
 From: http://www.cnblogs.com/MonkeyF/archive/2013/05/13/3076466.html
+* 26. 查看硬件设备 lspci
+查看显卡: lspci -nn | grep '\[03'
+(使用 lspci -nn | grep VGA 并不是很恰当, 因为有些显卡命名不是这样的)
+* 27. shadowsocks-qt5
+openwares.net/linux/debian-shadowsocks-qt5-install.html
