@@ -572,3 +572,82 @@ From: http://www.cnblogs.com/MonkeyF/archive/2013/05/13/3076466.html
 (使用 lspci -nn | grep VGA 并不是很恰当, 因为有些显卡命名不是这样的)
 * 27. shadowsocks-qt5
 openwares.net/linux/debian-shadowsocks-qt5-install.html
+<<<<<<< HEAD
+=======
+* 28. 鼠标移动窗口
+You can move a window by pressing
+
+    Alt+F7, then moving it around with the arrow keys, and finish by hitting Return.
+
+    The same goes for resizing, using Alt+F8
+
+You can also press Esc to cancel
+
+Also, while I'm at it:
+
+    Alt+F9 minimises the window
+
+    Alt+F10 maximises it
+
+You can also bring up the application's window menu with Alt+space:
+http://askubuntu.com/questions/18243/moving-windows-from-the-keyboard
+* 29. pdf 工具
+** 1. 合并 pdf
+pdfunite file1.pdf file2.pdf out.pdf
+pdfunite 是poppler-utils 中的组件, Debian默认已经安装了,但是pdfunite不能合并加密的pdf.
+会给出Unimplemented Feature: Could not merge encrypted files ('filename.pdf')
+的提示
+
+pdftk file1.pdf file2.pdf cat output out.pdf
+pdftk 可以合并加密的pdf.
+** 2. 拆分 pdf
+extract pages 12-15:
+pdftk full-pdf.pdf cat 12-15 output outfile_p12-15.pdf
+
+extract pages 1-10, 15, and 17:
+pdftk A=in.pdf cat A1-10 A15 A17 output out.pdf
+http://askubuntu.com/questions/221962/how-can-i-extract-a-page-range-a-part-of-a-pdf
+* 30. nautilus每次打开的时候始终显示隐藏文件
+nautilus每次打开的时候始终显示隐藏文件，但是nautilus的设置中，显示隐藏文件选项是false
+这是因为 gtk 的 file-chooser 设置中show-hidden选项为true.
+打开dconf系统配置编辑器, 在 org->gtk->settings->file-chooser 中将show-hidden条目的选项更改
+
+open terminal and type:
+dconf-editor
+Enter and then:
+org->gtk->settings->file-chooser
+uncheck show-hidden
+* 31. Terminal下设置代理
+Shadowsocks 服务
+** 1 安装proxychains
+$ sudo apt-get install proxychains
+** 2 编辑配置文件
+最后一行改为(这里的1080是shadowsocks中配置的端口号)
+socks5 127.0.0.1 1080
+** 3 使用
+proxychains + 命令
+eg. 
+$ proxychains curl cip.cc
+$ sudo proxychains apt-get update
+* 32. linux网络有线连接失败“设备未托管” 解决办法 
+问题描述：
+
+1.Linux 无线网络连接正常，有线网络无法连接
+
+2.ifconfig 命令之后没有eth0 。
+
+3.右上角网络连接处显示有线网络 设备未托管
+
+
+解决方法：
+
+sudo /etc/NetworkManager/NetworkManager.conf
+
+将managed=false改成true，重启一下就可以了
+* 33. 为steam添加其他的分区中的目录作为库文件夹
+修改 /etc/fstab 文件，使该分区自动挂载
+<file system>                      <mount point>   <type>  <options>       <dump>  <pass>
+/dev/disk/by-uuid/0000678400004823 /mnt/Reserve     auto nosuid,nodev,nofail,x-gvfs-show 0 0
+* 34. firefox 添加 flashplayer 支持
+将 flashplayer 插件 libflashplayer.so 放在 /usr/lib/mozilla/plugins 目录下
+>>>>>>> 7d23ab781edc56b2bd77e36299132a95fb8eae4a
