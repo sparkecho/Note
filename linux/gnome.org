@@ -1,0 +1,27 @@
+* 使应用能够在dash中被搜索到
+In Terminal
+
+gedit ~/.local/share/applications/<Your App Name>.desktop
+
+In gedit
+
+Here you should edit: Note that the below comments are best guess, feel free to correct me
+
+[Desktop Entry]  
+Version=1.0                                #not sure what this does
+Name=My Awesome App                        #Obviously the application name
+GenericName=Awesome App                    #Difference between this and Name?
+Comment=This app is awesome!               #The tooltip
+Exec=/path/to/sh/file/file.sh              #The command you want to execute
+Terminal=false                             #Should the app run in terminal
+Icon=/opt/PhpStorm-103.243/bin/webide.png  #The pretty picture :D
+Type=Application                           #Um?
+Categories=Network;WebBrowser;             #Categoies the app should be in
+MimeType=text/html;                        #Mime types the launcher can open
+Name[en_NZ]=My Awesome App                 #Localized version of above info
+GenericName[en_NZ]=Awesome App             #Localized version of above info
+Comment[en_NZ]=This app is awesome!        #Localized version of above info
+
+Save the file.
+Now your application will show in searches :)
+http://askubuntu.com/questions/37401/how-do-i-add-a-launcher-for-sh-applications
