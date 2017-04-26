@@ -230,7 +230,52 @@ ab
 
 
 
+
+** features
+
+*** Redo (Undo undo)
+
+
+Short version: by undoing the undo. If you undo, and then do a non-editing command such as C-f, then the next undo will undo the undo, resulting in a redo.
+
+Longer version:
+
+You can think of undo as operating on a stack of operations. If you perform some command (even a navigation command such as C-f) after a sequence of undo operations, all the undos are pushed on to the operation stack. So the next undo undoes the last command. Suppose you do have an operation sequence that looks like this:
+
+1. Insert "foo"
+2. Insert "bar"
+3. Insert "I love spam"
+
+Now, you undo. It undoes the last action, resulting in the following list:
+
+1. Insert "foo"
+2. Insert "bar"
+
+If you do something other than undo at this point - say, C-f, the operation stack looks like this:
+
+1. Insert "foo"
+2. Insert "bar"
+3. Insert "I love spam"
+4. Undo insert "I love spam"
+
+Now, when you undo, the first thing that is undone is the undo. Resulting in your original stack (and document state):
+
+1. Insert "foo"
+2. Insert "bar"
+3. Insert "I love spam"
+
+If you do a modifying command to break the undo sequence, that command is added after the undo and is thus the first thing to be undone afterwards. Suppose you backspaced over "bar" instead of hitting C-f. Then you would have had
+
+1. Insert "foo"
+2. Insert "bar"
+3. Insert "I love spam"
+4. Undo insert "I love spam"
+5. Delete "bar"
+
+This adding/re-adding happens ad infinitum. It takes a little getting used to, but it really does give Emacs a highly flexible and powerful undo/redo mechanism.
+http://stackoverflow.com/questions/3527142/how-do-you-redo-changes-after-undo-with-emacs
    
+
 * Emacs与buffer
 
 From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
@@ -358,7 +403,57 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
    
    C-x 5 2：新建一个frame;   
    
-   
+
+** unsplit window 合并窗口
+unsplit window as follows
+
++--------------+-------------+             +--------------+-------------+
+|              |             |             |              |             |
+|              |             |             |              |             |
+|              |             |             |              |             |
++--------------+             |     -->     |              |             |
+|              |             |             |              |             |
+|              |             |             |              |             |
+|              |             |             |              |             |
++--------------+-------------+             +--------------+-------------+
+
+
+
++--------------+--------------+            +-----------------------------+
+|              |              |            |                             |
+|              |              |            |                             |
+|              |              |            |                             |
++--------------+--------------+    -->     +-----------------------------+
+|                             |            |                             |
+|                             |            |                             |
+|                             |            |                             |
++-----------------------------+            +-----------------------------+
+
+use the [C-x 0] key combination to delete the current window
+
+use the [C-u C-x 0] key combination to delete another window
+http://stackoverflow.com/questions/5360028/emacs-unsplit-a-particular-window-split
+
+
+** swap buffer 交换窗口内容
+
+*** buffer-move
+C-S-up    : buf-move-up      move current buffer to it's upward window
+C-S-down  : buf-move-down    move current buffer to it's downward window
+C-S-left  : buf-move-left    move current buffer to it's left window
+C-S-right : buf-move-right   move current buffer to it's right window
+
+*** transpose-frame
+transpose-frame             … Swap x-direction and y-direction
+flip-frame                  … Flip vertically
+flop-frame                  … Flop horizontally
+rotate-frame                … Rotate 180 degrees
+rotate-frame-clockwise      … Rotate 90 degrees clockwise
+rotate-frame-anti-clockwise … Rotate 90 degrees anti-clockwise
+
+http://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-emacs
+
+
 * Emacs与文件
 
 ** emacs 产生的 *~ 和 #*# 文件
@@ -382,7 +477,7 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
             yes <Return> 
    来继续恢复自动保存的数据。
    
-   
+
 * 设置主题
 
   如, 设置了一个主题名为 bla-theme.el
@@ -485,3 +580,12 @@ and sets variables according to the rules in this file. Specifically, Emacs will
 set the language standard for Flycheck syntax checking to C++ 11 for all C++ files in 
 
 your project.
+
+
+* Tips
+** 输入特殊字符
+*** 使用 TeX 输入方法
+M-x set-input-method TeX
+\alpha = α
+\beta  = β
+\theta = θ
