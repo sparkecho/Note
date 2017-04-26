@@ -215,3 +215,89 @@ FUNCTION-LAMBDA-EXPRESSION names a compiled function:
       NAME is some name (for debugging only) or NIL if there is no name.
   Known attributes: call, unwind, any
   Source file: SYS:SRC;CODE;DESCRIBE.LISP.NEWEST
+
+
+* 11. case 语句
+case 语句中每个断言不可以直接使用变量作为键值, 如果需要变量作为键值则用#. 读取宏.
+
+http://stackoverflow.com/questions/4479471/dynamic-variables-in-lisp-case-statement
+Q: code below doesn't work
+
+(case turn
+  (*red-player* ...)
+  (*black-player* ...)
+  (otherwise ...))
+
+A:
+
+You can enter the value of expressions into your forms with read-time evaluation
+
+CL-USER 18 > (defvar *foo* 'a)
+*FOO*
+
+CL-USER 19 > (defvar *bar* 'b)
+*BAR*
+
+CL-USER 20 > '(case some-var (#.*foo* 1) (#.*bar* 2))
+(CASE SOME-VAR (A 1) (B 2))
+
+Note that read-time evaluation is not necessarily the best idea for improving code maintenance and security.
+
+Note also that the idea that there is a variable with a descriptive name for some internal value like is not necessary in Lisp:
+
+dashedline = 4
+drawLine(4,4,100,100,dashedline)
+
+would be in Lisp
+
+(draw-line 4 4 100 100 :dashed-line)
+
+In Lisp one can pass descriptively named symbols. The sort of API that 
+uses integer values or similar is only need in APIs to external software
+typically written in C.
+
+* 12. 文件系统
+
+** 目录:
+
+*** 创建目录
+> (ensure-directories-exist "foo/")
+如果目录不存在(且具有权限)则会创建目录, 并返回 T
+否则会不创建目录，并返回 NIL
+
+*** 查看目录
+> (directory "foo/")
+如果目录存在则会返回一个元素为所给目录名的 pathname 的列表
+
+directory 支持正则表达式
+> (directory "foo/*")
+会返回一个包含 foo/ 目录下的所有文件/目录的路径 (pathname) 的列表
+
+> (directory "foo/*.jpg")
+会返回一个包含 foo/ 目录下的所有.jpg文件的路径 (pathname) 的列表
+
+> (directory "foo/?at.jpg")
+会查找文件名(不含后缀名)有三个字符, 且后两个字符是 at 的文件 (如 cat.jpg)
+如果存在则返回包含该文件路径的列表, 否则返回 NIL
+
+*** 删除目录
+> (delete-directory "foo") 或 (delete-directory "foo/")
+删除给定目录, 如果删除成功返回 T
+否则, 返回 NIL
+
+** 文件
+*** 查看文件是否存在
+> (probe-file "cat.jpg")
+
+*** 重命名文件
+> (rename-file "cat.jpg" "dog.jpg")
+
+*** 删除文件
+> (delete-file "cat.jpg")
+
+*** 创建文件
+**** open
+> (open "cat.jpg" :direction :probe :if-does-not-exist :create)
+:probe 选项是不打开流
+
+**** with-open-file
