@@ -71,3 +71,14 @@ M-, 从该函数定义的地方重新回到函数名所在的地方(执行 M-. �
   错误
 
 
+
+* 5. 查询 lisp 内置函数定义
+find lisp built-in functions definition
+slime-edit-definition
+** sbcl
+For jumping to functions inside your lisp implementation you may need 
+to do something extra to point to the sources. In SBCL you have to 
+sb-ext:set-sbcl-source-location to the correct place.
+
+> (sb-ext:set-sbcl-source-location "/path/to/sbcl/")
+http://stackoverflow.com/questions/24818321/how-do-i-jump-to-a-function-definition-in-emacs-when-using-slime
