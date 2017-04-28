@@ -1,0 +1,6 @@
+将二进制文件 stumpwm 放在PATH 中
+
+echo exec stumpwm >> ~/.xinitrc
+# 使用startx 启动
+stumpwm 的命令都是 C-t 开头的
+
