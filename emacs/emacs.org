@@ -582,6 +582,22 @@ set the language standard for Flycheck syntax checking to C++ 11 for all C++ fil
 your project.
 
 
+* Emacs Elpa 包管理
+** 查看可用的包(插件)
+M-x package-list-packages
+or 
+M-x list-packages
+
+** 安装
+在包列表下, 按下 i 会将光标所在的那行对应的软件包标记（最左边出现字符 I）,
+按下 x 执行安装操作
+
+取消标记按 u
+
+** 升级
+在包列表中, 按下 U 包管理器会自动更新列表, 然后标记可用的更新,
+按下 x 执行安装操作
+
 * Tips
 ** 输入特殊字符
 *** 使用 TeX 输入方法
