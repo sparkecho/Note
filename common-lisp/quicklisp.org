@@ -44,3 +44,9 @@ Quicklisp Note
    (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
      (when (probe-file quicklisp-init)
        (load quicklisp-init)))
+
+
+* 4. 使用
+  To load a system, use: (ql:quickload "system-name")
+
+  To find systems, use: (ql:system-apropos "term")
