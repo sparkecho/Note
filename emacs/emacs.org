@@ -82,6 +82,16 @@ Emacs 笔记
    向下滚动一屏：C-v(view). 向上滚动一屏：M-v. 将当前行置于屏幕中间：
    C-l.  2次 C-l 置于屏幕首, 3次 C-l 置于屏幕末。
 
+*** Jumping shortcut keys
+    C-M-f     Move forward over a balanced expression
+    C-M-b     Move backward over a balanced expression
+    C-M-k     Kill balanced expression forward
+    C-M-SPC   put the mark at the end of the sexp.
+    C-M-n  Move forward over a parenthetical group 
+    C-M-p  Move backward over a parenthetical group 
+    ;; C-M key binding can also be done by --> ESC Control-key
+
+Use C-M-right and C-M-left (respectively backward-sexp and forward-sexp) to go to the beginning or the end of the current expression. This works for parenthesis pairs but also for plain words.
    
 ** 文件的基本编辑
 对文本的删除, 复制, 粘贴等。
@@ -479,13 +489,29 @@ http://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-
    
 
 * 设置主题
-
+** 主题文件
   如, 设置了一个主题名为 bla-theme.el
 使用方式默认安装时, 配置主题的 elisp 文件放置在如下位置
 /usr/local/share/emacs/24.5/etc/themes
 
 使用Windows方式安装时, 配置主题的 elisp 文件放置在如下位置
 /usr/local/emacs-24.5/share/emacs/24.5/etc/themes/
+** 字体设置
+*** 字体设置为 DejaVu Sans Mono Book
+DejaVu Sans Mono Book的好处是中文与英文高度相等,且宽度中文是英文的两倍.
+用(set-frame-font "DejaVu Sans Mono Book-12")设置会提示 "Font not found"
+$ fc-list |grep 'DejaVu Sans Mono'
+/usr/share/fonts/TTF/DejaVuSansMono.ttf: DejaVu Sans Mono:style=Book
+/usr/share/fonts/TTF/DejaVuSansMono-Oblique.ttf: DejaVu Sans Mono:style=Oblique
+/usr/share/fonts/TTF/DejaVuSansMono-Bold.ttf: DejaVu Sans Mono:style=Bold
+/usr/share/fonts/TTF/DejaVuSansMono-BoldOblique.ttf: DejaVu Sans Mono:style=Bold Oblique
+从上述信息可以看出并没有一个叫做DejaVuSansMonoBook.ttf的字体, Book 只是DejaVu Sans Mono的一种style.
+使用下述方式即可将默认字体设置为DejaVu Sans Mono Book:
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "Book" :slant normal :weight normal :height 113 :width normal)))))
+#+END_SRC
+
 
 
 * 编程
@@ -522,6 +548,15 @@ http://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-
     C-c . g h    切换到历史窗口
     C-c . g l    切换到上一个编辑窗口
     C-c . h      更详细的帮助信息
+
+**** 代码折叠(code folding)
+hs-minor-mode
+C-c @ C-M-h : (hs-hide-all) 全部折叠
+C-c @ C-M-s : (hs-show-all) 全部展开
+C-c @ C-c   : (hs-toggle-hiding)
+              (hs-hide-block)/(hs-show-block) 代码块折叠/展开
+
+
 ** 使用 GDB debug
    M-x gdb [填写要进行debug的二进制文件] 启动 gdb
    M-x gdb-many-windows  多窗口显示
@@ -553,6 +588,7 @@ M-x replace-string RET C-q C-m RET RET
 **** 方法(2)
 使用 dos2unix 工具对文件进行转换, 但是一次转换只能消除每行末尾的一个  符号,
 如果一行中有多个  符号, 多次进行转换即可.
+
 ** FlyCheck
 *** c++11 support
 Flycheck provides the option flycheck-gcc-language-standard for this purpose. 
@@ -598,6 +634,7 @@ M-x list-packages
 在包列表中, 按下 U 包管理器会自动更新列表, 然后标记可用的更新,
 按下 x 执行安装操作
 
+
 * Tips
 ** 输入特殊字符
 *** 使用 TeX 输入方法
@@ -605,3 +642,5 @@ M-x set-input-method TeX
 \alpha = α
 \beta  = β
 \theta = θ
+** 替换的时候输入换行符
+C-q C-j 可以插入换行符

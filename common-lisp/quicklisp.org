@@ -50,3 +50,9 @@ Quicklisp Note
   To load a system, use: (ql:quickload "system-name")
 
   To find systems, use: (ql:system-apropos "term")
+
+* 5. 更新
+(ql:update-all-dists)
+
+清除旧版本的软件包
+(ql-dist:clean (ql-dist:dist "quicklisp"))

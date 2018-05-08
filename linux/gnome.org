@@ -25,3 +25,5 @@ Comment[en_NZ]=This app is awesome!        #Localized version of above info
 Save the file.
 Now your application will show in searches :)
 http://askubuntu.com/questions/37401/how-do-i-add-a-launcher-for-sh-applications
+* 重启 gnome(restart gnome)
+killall -3 gnome-shell

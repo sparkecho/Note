@@ -1,4 +1,4 @@
-从视频中提取图片
+* 从视频中提取图片
 
 1. 安装
    sudo apt-get install ffmpeg
@@ -10,3 +10,14 @@
    -r选项设置每秒提取图片的帧数。我想要每秒提取一帧。
    -q:v, 应该留意这个选项,它用来设置提取到的图片质量.设置值为2来从视频中获取高质量图片
    image-3%d.jpeg 说明生成的图片文件的文件名为 image-3x.jpeg, x 是从 1 开始递增的整数
+
+
+* 修复视频
+ffmpeg -i input.mp4 -c copy output.mp4
+If the problem is just with the container, this will fix it.
+
+If that doesn't work, please post the complete terminal message, as it 
+
+could give a clue as to how to fix the file.
+
+https://superuser.com/questions/538829/repairing-corrupt-mp4

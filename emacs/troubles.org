@@ -1,0 +1,17 @@
+* Get out of minibuffer completion
+C-] : abort-recursive-edit
+https://emacs.stackexchange.com/questions/31702/cant-get-out-of-minibuffer-completion
+Q: Can't get out of minibuffer completion
+A: Is it possible there is an active recursive edit in the completion minibuffer?
+   C-] by default is abort-recursive-edit.
+* ECB mini buffer completion issue
+https://github.com/ecb-home/ecb/issues/10 (toto-42)
+
+#+BEGIN_SRC emacs-lisp
+(defun display-buffer-at-bottom--display-buffer-at-bottom-around (orig-fun &rest args)
+  "Bugfix for ECB: cannot use display-buffer-at-bottom', calldisplay-buffer-use-some-window' instead in ECB frame."
+  (if (and ecb-minor-mode (equal (selected-frame) ecb-frame))
+      (apply 'display-buffer-use-some-window args)
+    (apply orig-fun args)))
+(advice-add 'display-buffer-at-bottom :around #'display-buffer-at-bottom--display-buffer-at-bottom-around)
+#+END_SRC

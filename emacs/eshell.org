@@ -1,0 +1,3 @@
+* 输出 EOF
+在 shell 下 C-d 表示输出 EOF, 在 eshell 下调用 ~eshell-send-eof-to-process~ 命令可以达到同样的目的, 该命令绑定了 ~C-c C-d~.
+C-c C-d : eshell-send-eof-to-process

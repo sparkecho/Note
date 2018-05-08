@@ -81,3 +81,7 @@ for(int i = 0; i < 3; i++)
 #+END_SRC
 * 5. error: variable ‘std::ifstreamxxx'’ has initializer but incomplete ty
 没有加头文件 #include <fstream>
+* 6. .a -> .so
+静态链接库转动态链接库
+ar -x lib***.a
+gcc -shared *.o -o lib***.so

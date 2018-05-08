@@ -1,23 +1,66 @@
 Org-mode Note
 
-
 * 新建一个org-mode文件
   C-x C-f test.org  
   (1) 输入正文标题
-  (2) 按 M-RTN  输入第一个标题, 回车; 
-      输入标题内容
-  (3) 按 M-RTN tab, 插入一个二级标题; 
-      输入标题  回车; 
-      输入内容
-      (多次按 Tab 可以在标题级数间切换, * 的数目代表级数)
-  (4) 依次类推, 输入完文章即可
-  (5) C-x C-s 保存文件
-  (6) C-c C-e 什么格式输出，按 h 为选择 html
 
+  (2) 按 M-RTN  输入第一个标题, 回车; 
+
+  输入标题内容
+
+  (3) 按 M-RTN tab, 插入一个二级标题; 
+
+  输入标题  回车; 输入内容
+
+  (多次按 Tab 可以在标题级数间切换, * 的数目代表级数)
+
+  (4) 依次类推, 输入完文章即可
+
+  (5) C-x C-s 保存文件
+
+  (6) C-c C-e 什么格式输出，按 h 为选择 html
+  
 * 插入代码块
   #           代码类型
-
+  
   #+BEGIN_SRC emacs-lisp
   (defun hello ()
     (print "Hello, world"))
   #+END_SRC
+* 样式控制
+*bold*, /italic/, _underlined_, =verbatim=, ~code~, +strike-through+
+*黑体*, /斜体/, _下划线_, =字面=, ~代码~, +删除线+
+上标: a^2 a^{b}
+下标: a_1 a_{b}
+* 实时预览
+使用 org-preview-html-mode.
+.emacs.d/conf/org-conf.el
+~(define-key org-mode-map (kbd "C-c C-c") 'org-preview-html-mode)~
+* 超链接
+#+BEGIN_SRC
+[[link][description]]       or alternatively           [[link]]
+#+END_SRC
+=[[link]]=
+* 插入 LaTeX 代码
+可以插入 LaTeX 代码来排版数学公式
+
+|Type            | Inline (within text) formulas | Displayed equations | Displayed and automatically numbered equations
+|----------------+-------------------------------+---------------------+-----------------------------------------------
+|Environment     | math                          | displaymath         | equation
+|LaTeX shorthand | =\(...\)=                     | =\[...\]=           |
+|TeX shorthand   | =$...$=                       | =$$...$$=           |
+|Comment         |                               |                     |equation* (starred version) suppresses numbering, but requires amsmath
+
+*Suggestion:* Using the =$$...$$= should be avoided, as it may cause problems, particularly with the AMS-LaTeX macros. Furthermore, should a problem occur, the error messages may not be helpful.
+The =equation*= and =displaymath= environments are functionally equivalent.
+
+* Tittle 报错
+The full sequence of steps that worked for me:
+
+From the command line:
+Run emacs without loading the init file: emacs -q
+In emacs:
+run C-u M-x org-reload
+Use package-list-packages to uninstall org: select it then d x
+Use package-list-packages to reinstall org: select it then i x
+After restarting emacs, everything worked.

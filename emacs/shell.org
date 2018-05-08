@@ -1,0 +1,25 @@
+Note of shell mode.
+* 输出重定向 redirect
+脚本: epipe
+
+  #+BEGIN_SRC shell
+#!/bin/bash
+
+# Intro: Extension for emacs shell-mode, redirect output to a new emacs buffer.
+# Usage: echo Hello | epipe               : will create a new emacs buffer containing "Hello".
+#        echo Hello | epipe '(diff-mode)' : also works, if one wants to set up the major mode.
+# Reference: https://www.reddit.com/r/emacs/comments/6y3q4k/yes_eshell_is_my_main_shell/
+
+temp=$(mktemp)
+text=`cat`
+echo "$text" > $temp
+
+read -r -d '' lisp <<EOF
+  (switch-to-buffer (generate-new-buffer-name "*pipe*"))
+  (insert-file-contents "$temp")
+EOF
+
+emacsclient --eval "(progn $lisp $1)"
+rm "$temp"
+
+  #+END_SRC

@@ -5,7 +5,6 @@ Linux Note
    设置为 user_name $ chown -R user_name quicklisp # 加入 -R 参数, 递
    归地将 quicklisp 目录下的所有文件的所有者设置为 user_name
 
-
 * 2. 为 UUID = *** 准备的磁盘尚未就绪或不存在
 
    For Example:由于安装其他系统时误格了此 OS 的 swap 分区, 导致分区
@@ -59,7 +58,6 @@ Linux Note
 
 	   将 sda9 的 UUID 更改
 
-
 * 3. gst
 	问题描述: gst(gnu-smalltalk) 在 bash 下可以正常调用($ gst
 		RTN), 但是在 zsh 下,普通方式调用会报如下错误: fatal:
@@ -72,7 +70,6 @@ Linux Note
 		gst="/usr/local/bin/gst"即将 gst 作为程序调用的路径的
 		别名, 重新打开 zsh 即生效
 
-
 * 4. chrome 安装问题
 	问题描述: Debian 下安装 Chrome, 如果 sudo dpkg -i
 		google-chrome**.deb 安装出错
@@ -81,7 +78,6 @@ Linux Note
 
 	解决方法: sudo apt-get update sudo apt-get upgrade然后执行
 		sudo apt-get -f install则 chrome 安装成功
-
 
 * 5. 挂载/卸载 U 盘
 
@@ -94,10 +90,8 @@ Linux Note
 
    卸载$ sudo umount /dev/sdc1
 
-
 * 6. 在 GUI 与 CLI 之间切换
    切换到 CLI: C-M-F[1~6]切换到 GUI: C-M-F7
-
 
 * 7. lsblk 可以查看所有的分区
    $ lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT sda 8:0 0 465.8G 0
@@ -108,12 +102,10 @@ Linux Note
    300M 0 part ├─sda9 8:9 0 100M 0 part /boot/efi └─sda10 8:10 0
    188.4G 0 part sr0 11:0 1 1024M 0 rom sr1 11:1 1 1024M 0 rom
 
-
 * 8. 显示系统中所有的字体
    $ fc-list一般系统中的字体存放在 /usr/share/fonts 目录下$ ls
    /usr/share/fonts cmap opentype truetype type1 X11向系统中加入字体只
    需将字体拷贝到此目录中即可
-
 
 * 9. 列出系统的头文件
    $ echo "" | g++ -v -x c++ -E -会找到类似下面的这些行#include "..."
@@ -125,7 +117,6 @@ Linux Note
    /usr/include/x86_64-linux-gnu /usr/include End of search list.
 
    中间的部分即为所需
-
 
 * 10. wget
 
@@ -298,8 +289,16 @@ SECONDS秒–waitretry=SECONDS 在重新链接之间等待1…SECONDS秒–rando
 * 15. 查看目录所占空间的大小
 du dirname可以查看目录 dirname 下的各个文件的大小-h 参数可以以 Human
 Readable 的形式输出-s 参数只统计总和, 不以各个单独文件的大小的形式输出
-* 16. 以只读方式挂载磁盘
-  $ mount -o ro,auto /dev/sdax /tmp/xxx
+* 16. 挂载磁盘
+** 以只读方式挂载磁盘
+   $ mount -o ro,auto /dev/sdax /tmp/xxx
+** 以755权限自动挂载磁盘
+   https://ubuntuforums.org/showthread.php?t=2176441
+   修改 /etc/fstab 文件
+   $ UUID="xxx" /mnt/yyy auto auto,uid=1000,gid=1000,umask=0022 0 0
+   umask is actually used as the inverse or the permissions you're looking for. umask=0022 mounts with permissions 0755 or -rwxr-xr-x
+   umask = 0000 时, 挂载后的权限是777, 会导致挂载目录下的文件目录名和背景变为绿色不易识别
+
 * 17. 插入网线, network-manager 提示"线缆已拔出“, ”设备未托管“
 
 1.  修改 '/etc/NetworkManager/NetworkManager.conf', 将 'managed=false'
@@ -649,3 +648,32 @@ sudo /etc/NetworkManager/NetworkManager.conf
 /dev/disk/by-uuid/0000678400004823 /mnt/Reserve     auto nosuid,nodev,nofail,x-gvfs-show 0 0
 * 34. firefox 添加 flashplayer 支持
 将 flashplayer 插件 libflashplayer.so 放在 /usr/lib/mozilla/plugins 目录下
+* 35. 链接库
+使用 pkg-config 可以查看添加链接库时应该使用的名称
+如：
+$ pkg-config --libs glfw3
+glfw
+* 36. 软键盘快捷键
+C-M-b
+* 37. 在众多文件中查找字符串
+使用 /cat *.cpp | grep fact/ 虽然也能在文件中查找字符串, 但是搜索完毕后
+并不能知道字符串在哪个文件中出现, 而使用 *silver-searcher* 即可解决此问题.
+** Install
+ubuntu: apt-get install silversearcher-ag
+arch:   pacaur -S silver-searcher
+
+** Usage
+$ ag fact *.cpp
+* 38. 解压缩 .rar
+unrar x <myfile>
+* 39. Hotspot
+$ sudo create_ap wlo1 eno1 voldmore 19960507
+如果遇到 RTNETLINK answers: Operation not possible due to RF-kill
+的问题(执行 sudo ip link set wlo1 up 也会报这个错):
+$ sudo rfkill list all
+$ sudo rfkill unblock all
+* 40. steamcommunity
+Ref:
+http://www.3dmgame.com/faq/201712/3707011.html
+在 */etc/hosts* 中添加转向ip：
+23.52.74.146 steamcommunity.com
