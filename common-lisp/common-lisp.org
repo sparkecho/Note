@@ -302,3 +302,22 @@ directory 支持正则表达式
 :probe 选项是不打开流
 
 **** with-open-file
+
+* 13. Live Coding
+** 实现方式
+见 ./livesupport.lisp
+主要是 update-swank 函数 (依赖于 continuable 和 get-server-connection 函数)
+(loop some-controll-statements
+      do (update-swank)
+      do (your-work-code))
+
+** 一些问题
+当 Live Coding 时，会出现 emacs 的 mini-buffer 不再给出语法提示的情况，解决方法：
+
+(defun slime-enable-concurrent-hints ()
+  (interactive)
+  (setf slime-inhibit-pipelining nil))
+
+M-x slime-enable-concurrent-hints
+
+http://techsnuffle.com/2018/04/17/slimeenableconcurrenthints
