@@ -677,3 +677,24 @@ Ref:
 http://www.3dmgame.com/faq/201712/3707011.html
 在 */etc/hosts* 中添加转向ip：
 23.52.74.146 steamcommunity.com
+
+* 41. sort
+根据第一个字段排序
+wc -l * | sort -nk1   # 根据行数将当前目录下的文件排序
+
+* 42. hardware information
+查看硬件信息
+** cpu
+$ lscpu
+** memory
+$ dmidecode -t memory
+** hard disk
+$ lsblk
+$ fdisk -l
+** pci 主板上硬件槽信息
+$ lspci
+$ lspci -v
+$ lspci -vv
+$ lspci -t  # 设备树
+** BIOS
+$ dmidecode -t bios

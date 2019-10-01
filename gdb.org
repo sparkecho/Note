@@ -1,0 +1,42 @@
+* 单步调试
+continue
+(gdb) c 或 continue
+
+* 反向调试
+https://stackoverflow.com/questions/1206872/how-to-go-to-the-previous-line-in-gdb#
+https://blog.csdn.net/CherylNatsu/article/details/6436570
+(gdb) r
+(gdb) record  或  target record-full
+之后便可根据历史记录回退
+(gdb) rc 或 reverse-continue
+* core dump
+ref: 
+https://blog.csdn.net/ispeller/article/details/20232089
+https://www.cnblogs.com/lidabo/p/5014710.html
+https://stackoverflow.com/questions/31795901/gdb-and-trouble-with-core-dumps
+
+Arch 下 dump 出来的 core 文件默认放在 /var/lib/systemd/coredump/ 文件夹下,
+并以 lz4 格式的压缩文件存在(解压后即可当作 core 文件使用).
+
+不过相比于在该目录中查找core文件, 使用 coredumpctl 来查询系统管理的 core
+文件是更好的方式.
+
+$ coredumpctl list '程序名称' | tail -n 5
+查询最近5次转储信息, 找到程序的进程号 PID
+
+$ coredumpctl -o core dump PID
+将转储信息导出到 core 文件中
+
+$ readelf -h your_core_file | grep -i "type\|类型"
+可以用来查看是否是转储文件, 转储文件类型是 CORE
+
+$ gdb -c core a.out 或 gdb [exec file] [core file]
+(gdb) bt (或 where)
+以上命令可以用来查看引发 core dump 的代码行
+
+** lz4 命令简介
+ref: 
+https://www.systutorials.com/docs/linux/man/1-lz4/
++ lz4 src dst 压缩
++ lz4 -m src1 src2 分别将两个文件压缩到 src1.lz4 src2.lz4
++ unlz4 a.lz4 c.txt 将 a.lz4 解压到 c.txt 中(与 lz4 -d 功能相同)

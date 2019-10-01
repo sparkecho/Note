@@ -19,9 +19,6 @@ Emacs 笔记
   
    命令的取消：C – g ,或者 按2次Esc.
 
-
-
-   
 ** Emacs文件的操作
 
    包括对文件的打开, 存储, 和退出。
@@ -35,9 +32,6 @@ Emacs 笔记
    打开一个新的farme:C-x 5 2.
    
    退出Emacs:C-x C-c.
-   
-
-
    
 ** Emacs缓冲区(buffer)
    
@@ -54,9 +48,6 @@ Emacs 笔记
    上一个缓冲区：C-x left.
    
    下一个缓冲区：C-x right.
-   
-
-
    
 ** 光标的移动
 
@@ -110,9 +101,6 @@ Use C-M-right and C-M-left (respectively backward-sexp and forward-sexp) to go t
 粘贴：                   C-y
 全选：                   C-x h
    
-   
-   
-
 ** Emacs 下的列编辑模式
 1. 选择区域
 和普通的emacs 操作一样用 C-@ 选择高亮一块区域，注意最后光标的停留位置和初始位置之间
@@ -179,7 +167,6 @@ abcde
 ab
 2. C-x r t 输入 xx 回车(RET)
    
-
 ** 文本的搜索
 
    Emacs 可以向前, 向后搜索字符串, 搜索命令是渐进的（incremental）的,
@@ -192,9 +179,6 @@ ab
    注意：在搜索时候, 可以按C-s/r 查看下/上一处, C-g取消搜索, 回到初始
    搜索光标处; <Enter>结束搜索, 光标留在搜索结果上。
 
-
-
-   
 ** 多窗口
 
    Emacs迷人之处很多, 能在一个屏幕上同时显示多个文件就是其中之一。
@@ -211,8 +195,6 @@ ab
    
    在新窗口中打开文件：C-x 4 C-f.
 
-
-   
 ** 更多帮助（more help）
 
    Emacs提供的功能实在是太多了, 更多的内容可以在Help文档中查看。
@@ -236,11 +218,6 @@ ab
    
    命令的重复：C-u 数字 命令。以所给数字为次数, 重复命令。
    
-
-
-
-
-
 ** features
 
 *** Redo (Undo undo)
@@ -285,7 +262,6 @@ If you do a modifying command to break the undo sequence, that command is added 
 This adding/re-adding happens ad infinitum. It takes a little getting used to, but it really does give Emacs a highly flexible and powerful undo/redo mechanism.
 http://stackoverflow.com/questions/3527142/how-do-you-redo-changes-after-undo-with-emacs
    
-
 * Emacs与buffer
 
 From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
@@ -319,9 +295,6 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
  的行为。例如, 设计用来书写文本的文本模式（text mode）, 和Lisp模式的表
  现就不一样, 后者被设计用来编写Lisp程序。
 
-
-
-
 ** 如何操作多个 buffer
 
 
@@ -345,9 +318,6 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
 
  我的习惯是： c-x c-b 显示所有名字 c-x b 输入要切换的buffer名字。
 
-
-
-
 ** 如何删除 buffer
 
 
@@ -364,30 +334,19 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
  如果删除了当前会话里的所有buffer, Emacs会新建一个 *scratch* buffer,
  总得有个东西显示在屏幕上不是？:P
 
-
-
-
 ** 如何保存 buffer
    
    C-x C-s：保存当前buffer; 
    
    C-x s：即save-some-buffers命令, 一次保存所有buffer; 
    
-
-
-
 ** 如何重命名 buffer
    
    M-x rename-buffer：重命名buffer; 
    
-
-
-
 ** 如何使 buffer 只读
 
    C-x C-q：切换buffer的read-only和read-write状态; 
-
-
 
 ** buffer和window的关系
 
@@ -413,7 +372,6 @@ From: http://blog.163.com/wobutianl@126/blog/static/133584820129119167881/
    
    C-x 5 2：新建一个frame;   
    
-
 ** unsplit window 合并窗口
 unsplit window as follows
 
@@ -444,7 +402,6 @@ use the [C-x 0] key combination to delete the current window
 use the [C-u C-x 0] key combination to delete another window
 http://stackoverflow.com/questions/5360028/emacs-unsplit-a-particular-window-split
 
-
 ** swap buffer 交换窗口内容
 
 *** buffer-move
@@ -462,7 +419,6 @@ rotate-frame-clockwise      … Rotate 90 degrees clockwise
 rotate-frame-anti-clockwise … Rotate 90 degrees anti-clockwise
 
 http://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-emacs
-
 
 * Emacs与文件
 
@@ -487,7 +443,6 @@ http://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-
             yes <Return> 
    来继续恢复自动保存的数据。
    
-
 * 设置主题
 ** 主题文件
   如, 设置了一个主题名为 bla-theme.el
@@ -511,8 +466,6 @@ $ fc-list |grep 'DejaVu Sans Mono'
 (custom-set-faces
  '(default ((t (:family "DejaVu Sans Mono" :foundry "Book" :slant normal :weight normal :height 113 :width normal)))))
 #+END_SRC
-
-
 
 * 编程
 ** 阅读代码
@@ -555,7 +508,6 @@ C-c @ C-M-h : (hs-hide-all) 全部折叠
 C-c @ C-M-s : (hs-show-all) 全部展开
 C-c @ C-c   : (hs-toggle-hiding)
               (hs-hide-block)/(hs-show-block) 代码块折叠/展开
-
 
 ** 使用 GDB debug
    M-x gdb [填写要进行debug的二进制文件] 启动 gdb
@@ -617,7 +569,6 @@ set the language standard for Flycheck syntax checking to C++ 11 for all C++ fil
 
 your project.
 
-
 * Emacs Elpa 包管理
 ** 查看可用的包(插件)
 M-x package-list-packages
@@ -634,7 +585,6 @@ M-x list-packages
 在包列表中, 按下 U 包管理器会自动更新列表, 然后标记可用的更新,
 按下 x 执行安装操作
 
-
 * Tips
 ** 输入特殊字符
 *** 使用 TeX 输入方法
@@ -644,3 +594,9 @@ M-x set-input-method TeX
 \theta = θ
 ** 替换的时候输入换行符
 C-q C-j 可以插入换行符
+** 在minibuffer实时显示所按快捷键
+https://emacs.stackexchange.com/questions/29216/how-to-get-keystrokes-displayed-in-the-echo-area-immediately
+C-h v echo-keystrokes
+customize it, with value = 0.1 for example
+
+(setq echo-keystrokes .1)

@@ -1,0 +1,5 @@
+* install package to nonstandard directory
+if `pacman -S xxx` install to /opt; then
+pacman -S xxx -r /mnt/dir
+would find /mnt/dir/var/lib/pacman
+then install to /mnt/dir/opt

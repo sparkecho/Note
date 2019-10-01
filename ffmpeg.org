@@ -21,3 +21,6 @@ If that doesn't work, please post the complete terminal message, as it
 could give a clue as to how to fix the file.
 
 https://superuser.com/questions/538829/repairing-corrupt-mp4
+
+* 截取视频片段
+ffmpeg -i src.mp4 -vcodec copy -acodec copy -ss 00:52:56 -to 00:53:05 dst.mp4 -y
